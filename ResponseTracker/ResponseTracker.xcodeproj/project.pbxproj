@@ -12,6 +12,8 @@
 		B930CFB320934DA900EB5980 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B930CFB120934DA900EB5980 /* Main.storyboard */; };
 		B930CFB520934DA900EB5980 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B930CFB420934DA900EB5980 /* Assets.xcassets */; };
 		B930CFB820934DA900EB5980 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B930CFB620934DA900EB5980 /* LaunchScreen.storyboard */; };
+		B930CFC620935D0000EB5980 /* Call.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930CFC520935D0000EB5980 /* Call.swift */; };
+		B930CFC820935D1A00EB5980 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930CFC720935D1A00EB5980 /* Response.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		B930CFB420934DA900EB5980 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B930CFB720934DA900EB5980 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B930CFB920934DA900EB5980 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B930CFC520935D0000EB5980 /* Call.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Call.swift; sourceTree = "<group>"; };
+		B930CFC720935D1A00EB5980 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +58,7 @@
 		B930CFAC20934DA900EB5980 /* ResponseTracker */ = {
 			isa = PBXGroup;
 			children = (
+				B930CFC420935CEF00EB5980 /* Models */,
 				B930CFAD20934DA900EB5980 /* AppDelegate.swift */,
 				B930CFAF20934DA900EB5980 /* ViewController.swift */,
 				B930CFB120934DA900EB5980 /* Main.storyboard */,
@@ -62,6 +67,15 @@
 				B930CFB920934DA900EB5980 /* Info.plist */,
 			);
 			path = ResponseTracker;
+			sourceTree = "<group>";
+		};
+		B930CFC420935CEF00EB5980 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B930CFC520935D0000EB5980 /* Call.swift */,
+				B930CFC720935D1A00EB5980 /* Response.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -136,7 +150,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B930CFC820935D1A00EB5980 /* Response.swift in Sources */,
 				B930CFB020934DA900EB5980 /* ViewController.swift in Sources */,
+				B930CFC620935D0000EB5980 /* Call.swift in Sources */,
 				B930CFAE20934DA900EB5980 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
