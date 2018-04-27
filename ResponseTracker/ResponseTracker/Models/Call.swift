@@ -14,8 +14,8 @@ class Call: NSObject, NSCoding {
         self.responses = responses
     }
 
-    func responsesCount() -> Int {
-        return responses?.count ?? 0
+    func responsesCount() -> String {
+        return String(describing: responses?.count ?? 0)
     }
 
     public func encode(with aCoder: NSCoder) {
