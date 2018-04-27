@@ -27,8 +27,10 @@ class CallsViewController: UIViewController {
     }
 
     //MARK: - Navigation Bar Actions
-    func onResponded(_ sender: UIButton) {
-
+    func onResponded(emergencyType: String) {
+        AlertFactory.showOKCancelAlert(message: "Confirm you responded to \(emergencyType)") {
+            //TODO: add response
+        }
     }
 
     @IBAction func onMyPoints(_ sender: Any) {
@@ -36,7 +38,10 @@ class CallsViewController: UIViewController {
     }
 
     @IBAction func onAddCall(_ sender: Any) {
-
+        AlertFactory.showAddEmergencyTypeAlert { (emergencyType) in
+            //TODO: Add new emerency type
+            print("New emergency type \(emergencyType)")
+        }
     }
 }
 
@@ -48,8 +53,8 @@ extension CallsViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CallCell.cellIdentifier, for: indexPath) as! CallCell
-        cell.update(withCall: calls[indexPath.row]) { [weak self] (button) in
-            self?.onResponded(button)
+        cell.update(withCall: calls[indexPath.row]) { [weak self] (_, emergencyType) in
+            self?.onResponded(emergencyType: emergencyType)
         }
         return cell 
     }

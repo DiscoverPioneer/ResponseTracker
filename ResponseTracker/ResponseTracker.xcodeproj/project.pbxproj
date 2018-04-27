@@ -16,6 +16,8 @@
 		B930CFC820935D1A00EB5980 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930CFC720935D1A00EB5980 /* Response.swift */; };
 		B930CFCF209366B600EB5980 /* CallCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930CFCE209366B600EB5980 /* CallCell.swift */; };
 		B930CFD120936A5A00EB5980 /* CallsDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930CFD020936A5A00EB5980 /* CallsDataProvider.swift */; };
+		B930CFD52093731700EB5980 /* AlertFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930CFD42093731700EB5980 /* AlertFactory.swift */; };
+		B930CFD72093787700EB5980 /* UIApplicationExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930CFD62093787700EB5980 /* UIApplicationExt.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		B930CFC720935D1A00EB5980 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		B930CFCE209366B600EB5980 /* CallCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallCell.swift; sourceTree = "<group>"; };
 		B930CFD020936A5A00EB5980 /* CallsDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallsDataProvider.swift; sourceTree = "<group>"; };
+		B930CFD42093731700EB5980 /* AlertFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertFactory.swift; sourceTree = "<group>"; };
+		B930CFD62093787700EB5980 /* UIApplicationExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExt.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +66,7 @@
 		B930CFAC20934DA900EB5980 /* ResponseTracker */ = {
 			isa = PBXGroup;
 			children = (
+				B930CFD32093730300EB5980 /* Utils */,
 				B930CFCA2093652400EB5980 /* ViewControllers */,
 				B930CFC420935CEF00EB5980 /* Models */,
 				B930CFAD20934DA900EB5980 /* AppDelegate.swift */,
@@ -98,6 +103,15 @@
 				B930CFD020936A5A00EB5980 /* CallsDataProvider.swift */,
 			);
 			path = Calls;
+			sourceTree = "<group>";
+		};
+		B930CFD32093730300EB5980 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				B930CFD42093731700EB5980 /* AlertFactory.swift */,
+				B930CFD62093787700EB5980 /* UIApplicationExt.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -176,6 +190,8 @@
 				B930CFB020934DA900EB5980 /* CallsViewController.swift in Sources */,
 				B930CFC620935D0000EB5980 /* Call.swift in Sources */,
 				B930CFAE20934DA900EB5980 /* AppDelegate.swift in Sources */,
+				B930CFD72093787700EB5980 /* UIApplicationExt.swift in Sources */,
+				B930CFD52093731700EB5980 /* AlertFactory.swift in Sources */,
 				B930CFD120936A5A00EB5980 /* CallsDataProvider.swift in Sources */,
 				B930CFCF209366B600EB5980 /* CallCell.swift in Sources */,
 			);
