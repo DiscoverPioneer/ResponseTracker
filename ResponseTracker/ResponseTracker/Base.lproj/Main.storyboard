@@ -82,6 +82,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="Call Tracker" id="pPN-T9-Dlp">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="TqA-dV-Ldw"/>
                         <barButtonItem key="leftBarButtonItem" title="Add Call" id="ncT-DY-5je">
                             <connections>
                                 <action selector="onAddCall:" destination="BYZ-38-t0r" id="Grk-O7-dKd"/>
@@ -101,6 +102,121 @@
             </objects>
             <point key="canvasLocation" x="375.19999999999999" y="33.733133433283363"/>
         </scene>
+        <!--Responded-->
+        <scene sceneID="xAE-NS-QKr">
+            <objects>
+                <viewController storyboardIdentifier="ResponseDetailsViewController" id="qBx-dL-dRc" customClass="ResponseDetailsViewController" customModule="ResponseTracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="oYS-Zd-A8Y">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EmergencyType" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nvk-Lg-bzJ">
+                                <rect key="frame" x="10" y="74" width="355" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Incident #" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yqd-F1-XAh">
+                                <rect key="frame" x="15" y="115" width="77" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WPT-OS-AD0">
+                                <rect key="frame" x="102" y="110.5" width="258" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="GOj-tK-aG9">
+                                <rect key="frame" x="15" y="177" width="345" height="218"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Incident details" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OcI-br-IUG">
+                                <rect key="frame" x="15" y="151" width="117" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Nnx-qH-bcr">
+                                <rect key="frame" x="0.0" y="451" width="375" height="216"/>
+                                <date key="date" timeIntervalSinceReferenceDate="546960186.05226195">
+                                    <!--2018-05-02 13:23:06 +0000-->
+                                </date>
+                                <connections>
+                                    <action selector="onDatePicker:" destination="qBx-dL-dRc" eventType="valueChanged" id="X95-g6-0fi"/>
+                                </connections>
+                            </datePicker>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Incident date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xYa-k4-iZE">
+                                <rect key="frame" x="15" y="425" width="100" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sor-80-8rD">
+                                <rect key="frame" x="130" y="425" width="230" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="nvk-Lg-bzJ" firstAttribute="leading" secondItem="ntV-50-zAL" secondAttribute="leading" constant="10" id="0pV-vt-vwv"/>
+                            <constraint firstItem="xYa-k4-iZE" firstAttribute="top" secondItem="GOj-tK-aG9" secondAttribute="bottom" constant="30" id="2xx-5s-Xgn"/>
+                            <constraint firstItem="OcI-br-IUG" firstAttribute="leading" secondItem="ntV-50-zAL" secondAttribute="leading" constant="15" id="3kG-Rk-uUA"/>
+                            <constraint firstItem="ntV-50-zAL" firstAttribute="trailing" secondItem="Sor-80-8rD" secondAttribute="trailing" constant="15" id="54T-89-FCa"/>
+                            <constraint firstItem="Nnx-qH-bcr" firstAttribute="top" secondItem="xYa-k4-iZE" secondAttribute="bottom" constant="5" id="5Wy-cO-Sbd"/>
+                            <constraint firstItem="Sor-80-8rD" firstAttribute="centerY" secondItem="xYa-k4-iZE" secondAttribute="centerY" id="CHR-2C-qU4"/>
+                            <constraint firstItem="yqd-F1-XAh" firstAttribute="leading" secondItem="ntV-50-zAL" secondAttribute="leading" constant="15" id="FnL-hZ-oR9"/>
+                            <constraint firstItem="ntV-50-zAL" firstAttribute="trailing" secondItem="nvk-Lg-bzJ" secondAttribute="trailing" constant="10" id="HWb-zy-zsv"/>
+                            <constraint firstItem="GOj-tK-aG9" firstAttribute="top" secondItem="OcI-br-IUG" secondAttribute="bottom" constant="5" id="LB0-Ze-s8X"/>
+                            <constraint firstItem="Nnx-qH-bcr" firstAttribute="leading" secondItem="ntV-50-zAL" secondAttribute="leading" id="UpC-Qr-g1k"/>
+                            <constraint firstItem="GOj-tK-aG9" firstAttribute="leading" secondItem="ntV-50-zAL" secondAttribute="leading" constant="15" id="W9i-8G-FpV"/>
+                            <constraint firstItem="ntV-50-zAL" firstAttribute="trailing" secondItem="WPT-OS-AD0" secondAttribute="trailing" constant="15" id="Zdk-6O-8NG"/>
+                            <constraint firstItem="xYa-k4-iZE" firstAttribute="leading" secondItem="ntV-50-zAL" secondAttribute="leading" constant="15" id="a4L-Ul-j3S"/>
+                            <constraint firstItem="nvk-Lg-bzJ" firstAttribute="top" secondItem="ntV-50-zAL" secondAttribute="top" constant="10" id="ead-Fi-QrX"/>
+                            <constraint firstItem="OcI-br-IUG" firstAttribute="top" secondItem="yqd-F1-XAh" secondAttribute="bottom" constant="15" id="eyZ-db-cmZ"/>
+                            <constraint firstItem="WPT-OS-AD0" firstAttribute="centerY" secondItem="yqd-F1-XAh" secondAttribute="centerY" id="kIs-Xe-IcB"/>
+                            <constraint firstAttribute="bottom" secondItem="Nnx-qH-bcr" secondAttribute="bottom" id="m0i-uI-gkd"/>
+                            <constraint firstItem="Sor-80-8rD" firstAttribute="leading" secondItem="xYa-k4-iZE" secondAttribute="trailing" constant="15" id="mty-uZ-fP0"/>
+                            <constraint firstItem="yqd-F1-XAh" firstAttribute="top" secondItem="nvk-Lg-bzJ" secondAttribute="bottom" constant="20" id="ohB-kK-oFY"/>
+                            <constraint firstItem="ntV-50-zAL" firstAttribute="trailing" secondItem="GOj-tK-aG9" secondAttribute="trailing" constant="15" id="qRY-gf-kr8"/>
+                            <constraint firstItem="Nnx-qH-bcr" firstAttribute="trailing" secondItem="ntV-50-zAL" secondAttribute="trailing" id="qtz-FF-SEB"/>
+                            <constraint firstItem="WPT-OS-AD0" firstAttribute="leading" secondItem="yqd-F1-XAh" secondAttribute="trailing" constant="10" id="sXS-Sb-gz8"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ntV-50-zAL"/>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Responded" id="G9x-Il-gIQ">
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="qij-s1-6pJ">
+                            <connections>
+                                <action selector="onSave:" destination="qBx-dL-dRc" id="xop-vs-xSL"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="datePicker" destination="Nnx-qH-bcr" id="qCe-dF-6Ue"/>
+                        <outlet property="incidentDate" destination="Sor-80-8rD" id="8gn-pu-FwD"/>
+                        <outlet property="incidentDetails" destination="GOj-tK-aG9" id="LH6-KF-SOm"/>
+                        <outlet property="incidentNumber" destination="WPT-OS-AD0" id="pO2-px-kuf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rLa-yy-x9H" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="373.60000000000002" y="702.99850074962524"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="Nol-5h-S8Z">
             <objects>
@@ -118,6 +234,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="asl-LG-FrD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-350" y="34"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="9HZ-la-cl4">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="GrY-rl-iMS" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="tAy-HA-gzY">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="qBx-dL-dRc" kind="relationship" relationship="rootViewController" id="0Bh-6t-5D6"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IsA-pO-jSW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-351" y="703"/>
         </scene>
     </scenes>
 </document>

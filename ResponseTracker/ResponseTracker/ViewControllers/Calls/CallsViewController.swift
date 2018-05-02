@@ -28,8 +28,9 @@ class CallsViewController: UIViewController {
 
     //MARK: - Navigation Bar Actions
     func onResponded(emergencyType: String) {
-        AlertFactory.showOKCancelAlert(message: "Confirm you responded to \(emergencyType)") {
-            //TODO: add response
+        AlertFactory.showOKCancelAlert(message: "Confirm you responded to \(emergencyType)") { [weak self] in
+            guard let responseDetailsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: ResponseDetailsViewController.storyboardID) as? ResponseDetailsViewController else { return }
+            self?.navigationController?.pushViewController(responseDetailsVC, animated: true)
         }
     }
 
