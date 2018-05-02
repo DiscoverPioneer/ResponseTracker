@@ -21,6 +21,8 @@
 		B9802F372099EA04004A9BD5 /* ResponseDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9802F362099EA04004A9BD5 /* ResponseDetailsViewController.swift */; };
 		B9802F392099EB78004A9BD5 /* DateExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9802F382099EB78004A9BD5 /* DateExt.swift */; };
 		B9802F3C209A0AFE004A9BD5 /* PointsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9802F3B209A0AFE004A9BD5 /* PointsViewController.swift */; };
+		B9802F41209A0E23004A9BD5 /* EmergencyDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9802F40209A0E23004A9BD5 /* EmergencyDetailsViewController.swift */; };
+		B9802F43209A10AD004A9BD5 /* EmergencyDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9802F42209A10AD004A9BD5 /* EmergencyDetailCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +42,8 @@
 		B9802F362099EA04004A9BD5 /* ResponseDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseDetailsViewController.swift; sourceTree = "<group>"; };
 		B9802F382099EB78004A9BD5 /* DateExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExt.swift; sourceTree = "<group>"; };
 		B9802F3B209A0AFE004A9BD5 /* PointsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointsViewController.swift; sourceTree = "<group>"; };
+		B9802F40209A0E23004A9BD5 /* EmergencyDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyDetailsViewController.swift; sourceTree = "<group>"; };
+		B9802F42209A10AD004A9BD5 /* EmergencyDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyDetailCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +100,7 @@
 		B930CFCA2093652400EB5980 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				B9802F3F209A0E0B004A9BD5 /* EmergencyDetails */,
 				B9802F3A209A0AE3004A9BD5 /* Points */,
 				B9802F352099E43A004A9BD5 /* ResponseDetails */,
 				B930CFCB2093656F00EB5980 /* Calls */,
@@ -137,6 +142,15 @@
 				B9802F3B209A0AFE004A9BD5 /* PointsViewController.swift */,
 			);
 			path = Points;
+			sourceTree = "<group>";
+		};
+		B9802F3F209A0E0B004A9BD5 /* EmergencyDetails */ = {
+			isa = PBXGroup;
+			children = (
+				B9802F40209A0E23004A9BD5 /* EmergencyDetailsViewController.swift */,
+				B9802F42209A10AD004A9BD5 /* EmergencyDetailCell.swift */,
+			);
+			path = EmergencyDetails;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -213,7 +227,9 @@
 			files = (
 				B930CFC820935D1A00EB5980 /* Response.swift in Sources */,
 				B9802F372099EA04004A9BD5 /* ResponseDetailsViewController.swift in Sources */,
+				B9802F43209A10AD004A9BD5 /* EmergencyDetailCell.swift in Sources */,
 				B930CFB020934DA900EB5980 /* CallsViewController.swift in Sources */,
+				B9802F41209A0E23004A9BD5 /* EmergencyDetailsViewController.swift in Sources */,
 				B930CFC620935D0000EB5980 /* Call.swift in Sources */,
 				B930CFAE20934DA900EB5980 /* AppDelegate.swift in Sources */,
 				B9802F3C209A0AFE004A9BD5 /* PointsViewController.swift in Sources */,

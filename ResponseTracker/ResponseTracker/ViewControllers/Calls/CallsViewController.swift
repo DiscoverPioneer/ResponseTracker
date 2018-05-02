@@ -61,7 +61,9 @@ extension CallsViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+        guard let emergencyCallVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: EmergencyDetailsViewController.storyboardID) as? EmergencyDetailsViewController else { return }
+        self.navigationController?.pushViewController(emergencyCallVC, animated: true)
+        emergencyCallVC.update(withEmergencyCall: calls[indexPath.row])
     }
 }
 
