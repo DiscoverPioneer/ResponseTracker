@@ -91,6 +91,7 @@
                         <barButtonItem key="rightBarButtonItem" title="My Points" id="voD-OA-cuv">
                             <connections>
                                 <action selector="onMyPoints:" destination="BYZ-38-t0r" id="1oh-Br-eWj"/>
+                                <segue destination="o6q-aW-GPf" kind="show" id="5aH-j2-fgL"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -101,6 +102,51 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="375.19999999999999" y="33.733133433283363"/>
+        </scene>
+        <!--My Points-->
+        <scene sceneID="Usg-7H-feh">
+            <objects>
+                <viewController title="My Points" id="o6q-aW-GPf" customClass="PointsViewController" customModule="ResponseTracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="czl-lI-KoS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Points label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l3c-VI-aMz">
+                                <rect key="frame" x="15" y="94" width="345" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b11-qJ-HmG">
+                                <rect key="frame" x="144" y="577" width="86" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Htg-LL-5UT"/>
+                                </constraints>
+                                <state key="normal" title="Reset Points"/>
+                                <connections>
+                                    <action selector="onResetPoints:" destination="o6q-aW-GPf" eventType="touchUpInside" id="xaG-8F-ahC"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="l3c-VI-aMz" firstAttribute="top" secondItem="4Rb-5X-YIy" secondAttribute="top" constant="30" id="Gdj-ET-IgL"/>
+                            <constraint firstItem="4Rb-5X-YIy" firstAttribute="trailing" secondItem="l3c-VI-aMz" secondAttribute="trailing" constant="15" id="NDN-fS-33c"/>
+                            <constraint firstItem="l3c-VI-aMz" firstAttribute="leading" secondItem="4Rb-5X-YIy" secondAttribute="leading" constant="15" id="PeL-hN-w7s"/>
+                            <constraint firstItem="b11-qJ-HmG" firstAttribute="centerX" secondItem="czl-lI-KoS" secondAttribute="centerX" id="pDe-aU-gBx"/>
+                            <constraint firstItem="4Rb-5X-YIy" firstAttribute="bottom" secondItem="b11-qJ-HmG" secondAttribute="bottom" constant="50" id="x4A-ZO-2dp"/>
+                            <constraint firstItem="b11-qJ-HmG" firstAttribute="top" relation="greaterThanOrEqual" secondItem="l3c-VI-aMz" secondAttribute="bottom" constant="10" id="zkn-Q3-bv3"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="4Rb-5X-YIy"/>
+                    </view>
+                    <connections>
+                        <outlet property="pointsLabel" destination="l3c-VI-aMz" id="Wsx-57-ECV"/>
+                        <outlet property="resetButton" destination="b11-qJ-HmG" id="bK1-if-kEV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="S0e-Ub-cZ5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1279" y="34"/>
         </scene>
         <!--Responded-->
         <scene sceneID="xAE-NS-QKr">

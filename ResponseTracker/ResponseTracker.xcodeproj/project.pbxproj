@@ -20,6 +20,7 @@
 		B930CFD72093787700EB5980 /* UIApplicationExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930CFD62093787700EB5980 /* UIApplicationExt.swift */; };
 		B9802F372099EA04004A9BD5 /* ResponseDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9802F362099EA04004A9BD5 /* ResponseDetailsViewController.swift */; };
 		B9802F392099EB78004A9BD5 /* DateExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9802F382099EB78004A9BD5 /* DateExt.swift */; };
+		B9802F3C209A0AFE004A9BD5 /* PointsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9802F3B209A0AFE004A9BD5 /* PointsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		B930CFD62093787700EB5980 /* UIApplicationExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExt.swift; sourceTree = "<group>"; };
 		B9802F362099EA04004A9BD5 /* ResponseDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseDetailsViewController.swift; sourceTree = "<group>"; };
 		B9802F382099EB78004A9BD5 /* DateExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExt.swift; sourceTree = "<group>"; };
+		B9802F3B209A0AFE004A9BD5 /* PointsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 		B930CFCA2093652400EB5980 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				B9802F3A209A0AE3004A9BD5 /* Points */,
 				B9802F352099E43A004A9BD5 /* ResponseDetails */,
 				B930CFCB2093656F00EB5980 /* Calls */,
 			);
@@ -126,6 +129,14 @@
 				B9802F362099EA04004A9BD5 /* ResponseDetailsViewController.swift */,
 			);
 			path = ResponseDetails;
+			sourceTree = "<group>";
+		};
+		B9802F3A209A0AE3004A9BD5 /* Points */ = {
+			isa = PBXGroup;
+			children = (
+				B9802F3B209A0AFE004A9BD5 /* PointsViewController.swift */,
+			);
+			path = Points;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -205,6 +216,7 @@
 				B930CFB020934DA900EB5980 /* CallsViewController.swift in Sources */,
 				B930CFC620935D0000EB5980 /* Call.swift in Sources */,
 				B930CFAE20934DA900EB5980 /* AppDelegate.swift in Sources */,
+				B9802F3C209A0AFE004A9BD5 /* PointsViewController.swift in Sources */,
 				B930CFD72093787700EB5980 /* UIApplicationExt.swift in Sources */,
 				B930CFD52093731700EB5980 /* AlertFactory.swift in Sources */,
 				B9802F392099EB78004A9BD5 /* DateExt.swift in Sources */,
