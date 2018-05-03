@@ -3,7 +3,7 @@ import UIKit
 
 typealias RespondedBtnCallback = (_ button: UIButton, _ emergencyType: String) -> ()
 
-class CallCell: UITableViewCell {
+class EmergencyCell: UITableViewCell {
 
     static let cellIdentifier = "CallTypeCellIdentifier"
 
@@ -12,17 +12,17 @@ class CallCell: UITableViewCell {
     @IBOutlet weak var callTypeLabel: UILabel!
 
     private var respondedCallback: RespondedBtnCallback?
-    private var call: Call?
+    private var emergency: Emergency?
 
-    func update(withCall call: Call, onRespondedCallback callback: @escaping RespondedBtnCallback) {
-        self.call = call
-        self.numberOfCallLabel.text = call.responsesCount()
-        self.callTypeLabel.text = call.type
+    func update(withEmergency emergency: Emergency, onRespondedCallback callback: @escaping RespondedBtnCallback) {
+        self.emergency = emergency
+        self.numberOfCallLabel.text = emergency.responsesCount()
+        self.callTypeLabel.text = emergency.type
         self.respondedCallback = callback
     }
 
     //MARK: - Actions
     @IBAction func onResponded(_ sender: UIButton) {
-        respondedCallback?(sender, call?.type ?? "")
+        respondedCallback?(sender, emergency?.type ?? "")
     }
 }

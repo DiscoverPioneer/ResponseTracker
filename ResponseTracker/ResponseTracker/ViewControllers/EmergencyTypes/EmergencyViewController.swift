@@ -1,9 +1,9 @@
 import UIKit
 
-class CallsViewController: UIViewController {
+class EmergencyViewController: UIViewController {
     @IBOutlet weak var callsTableView: UITableView!
 
-    var calls: [Call] = EmergencyTypeDataSource.getEmergencyTypes() //CallsDataProvider.getCalls()
+    var emergencyTypes: [Emergency] = EmergencyTypeDataSource.getEmergencyTypes()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,32 +27,28 @@ class CallsViewController: UIViewController {
         callsTableView.tableHeaderView = header
     }
 
-    func getCalls() -> [Call] {
-        return calls
+    func getCalls() -> [Emergency] {
+        return emergencyTypes
     }
 
     //MARK: - Navigation Bar Actions
     func onResponded(emergencyType: String, index: Int) {
         AlertFactory.showOKCancelAlert(message: "Confirm you responded to \(emergencyType)") { [weak self] in
             guard let responseDetailsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: ResponseDetailsViewController.storyboardID) as? ResponseDetailsViewController,
-                let emergencyType = self?.calls[index] else { return }
+                let emergencyType = self?.emergencyTypes[index] else { return }
             self?.navigationController?.pushViewController(responseDetailsVC, animated: true)
             responseDetailsVC.update(withEmergencyType: emergencyType)
         }
     }
 
-    @IBAction func onMyPoints(_ sender: Any) {
-
-    }
-
     @IBAction func onAddCall(_ sender: Any) {
         AlertFactory.showAddEmergencyTypeAlert { (emergencyType) in
-            let newEmergencyType = Call(type: emergencyType, responses: [])
+            let newEmergencyType = Emergency(type: emergencyType, responses: [])
             EmergencyTypeDataSource.saveEmergencyType(emergency: newEmergencyType, callback: { [weak self] (success, error) in
                 if error != nil {
                     AlertFactory.showOKAlert(message: error!.message)
                 } else {
-                    self?.calls.append(newEmergencyType)
+                    self?.emergencyTypes.append(newEmergencyType)
                     self?.callsTableView.reloadData()
                 }
             })
@@ -60,15 +56,15 @@ class CallsViewController: UIViewController {
     }
 }
 
-extension CallsViewController: UITableViewDataSource, UITableViewDelegate {
+extension EmergencyViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return getCalls().count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: CallCell.cellIdentifier, for: indexPath) as! CallCell
-        cell.update(withCall: calls[indexPath.row]) { [weak self] (_, emergencyType) in
+        let cell = tableView.dequeueReusableCell(withIdentifier: EmergencyCell.cellIdentifier, for: indexPath) as! EmergencyCell
+        cell.update(withEmergency: emergencyTypes[indexPath.row]) { [weak self] (_, emergencyType) in
             self?.onResponded(emergencyType: emergencyType, index: indexPath.row)
         }
         return cell 
@@ -77,7 +73,7 @@ extension CallsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let emergencyCallVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: EmergencyDetailsViewController.storyboardID) as? EmergencyDetailsViewController else { return }
         self.navigationController?.pushViewController(emergencyCallVC, animated: true)
-        emergencyCallVC.update(withEmergencyCall: calls[indexPath.row])
+        emergencyCallVC.update(withEmergencyCall: emergencyTypes[indexPath.row])
     }
 }
 

@@ -5,7 +5,7 @@ class EmergencyDetailsViewController: UIViewController {
     static let storyboardID = "EmergencyCallDetailsViewController"
     
     @IBOutlet weak var tableView: UITableView!
-    private var emergencyCall: Call?
+    private var emergencyCall: Emergency?
 
     override func viewDidLoad() {
         tableView.delegate = self
@@ -20,7 +20,7 @@ class EmergencyDetailsViewController: UIViewController {
         tableView.reloadData()
     }
 
-    func update(withEmergencyCall call: Call) {
+    func update(withEmergencyCall call: Emergency) {
         self.emergencyCall = call
     }
 

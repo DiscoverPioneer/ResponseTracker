@@ -14,7 +14,7 @@
         <!--Call Tracker-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="CallsViewController" customModule="ResponseTracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="EmergencyViewController" customModule="ResponseTracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -23,7 +23,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CallTypeCellIdentifier" rowHeight="50" id="eIK-hV-cX8" customClass="CallCell" customModule="ResponseTracker" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CallTypeCellIdentifier" rowHeight="50" id="eIK-hV-cX8" customClass="EmergencyCell" customModule="ResponseTracker" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eIK-hV-cX8" id="r9L-cK-3c1">
@@ -90,7 +90,6 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="My Points" id="voD-OA-cuv">
                             <connections>
-                                <action selector="onMyPoints:" destination="BYZ-38-t0r" id="1oh-Br-eWj"/>
                                 <segue destination="o6q-aW-GPf" kind="show" id="5aH-j2-fgL"/>
                             </connections>
                         </barButtonItem>

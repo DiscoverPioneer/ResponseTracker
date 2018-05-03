@@ -20,15 +20,15 @@ class EmergencyTypeDataSource {
     private static let fileURL = FileManager.default.urls(for: .documentDirectory,
                                                                in: .userDomainMask).first?.appendingPathComponent("EmergencyTypes")
 
-    class func getEmergencyTypes() -> [Call] {
+    class func getEmergencyTypes() -> [Emergency] {
         guard let fileURL = EmergencyTypeDataSource.fileURL else { print("Error"); return [] }
-        if let emergencyTypes: [Call] = NSKeyedUnarchiver.unarchiveObject(withFile: fileURL.path) as? [Call] {
+        if let emergencyTypes: [Emergency] = NSKeyedUnarchiver.unarchiveObject(withFile: fileURL.path) as? [Emergency] {
             return emergencyTypes
         }
         return []
     }
 
-    class func saveEmergencyType(emergency: Call, callback: SaveDataBlock) {
+    class func saveEmergencyType(emergency: Emergency, callback: SaveDataBlock) {
         guard let fileURL = EmergencyTypeDataSource.fileURL else { callback(false, DataError.errorWritingData); return }
         var emergencyTypes = getEmergencyTypes()
         if !emergencyTypes.contains(where: { (savedEmergency) -> Bool in
@@ -42,7 +42,7 @@ class EmergencyTypeDataSource {
         }
     }
 
-    class func update(emergency: Call) -> Bool {
+    class func update(emergency: Emergency) -> Bool {
         guard let fileURL = EmergencyTypeDataSource.fileURL else { print("Error"); return false }
         var emergencyTypes = EmergencyTypeDataSource.getEmergencyTypes()
 

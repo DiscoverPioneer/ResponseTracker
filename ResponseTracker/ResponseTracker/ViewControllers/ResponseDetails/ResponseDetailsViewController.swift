@@ -11,17 +11,21 @@ class ResponseDetailsViewController: UIViewController {
     @IBOutlet weak var incidentDate: UILabel!
     @IBOutlet weak var emergencyType: UILabel!
 
-    private var emergency: Call?
+    private var emergency: Emergency?
     private var response: Response?
+    private var editResponse: Response?
     private var editMode: Bool = false
 
     override func viewDidLoad() {
         setupViews()
     }
 
-    func update(withEmergencyType emergencyType: Call, response: Response? = nil) {
+    func update(withEmergencyType emergencyType: Emergency, response: Response? = nil) {
         self.editMode = response != nil
         title = editMode ? "Edit response" : "Add response"
+        editResponse = Response(incidentNumber: response?.incidentNumber  ?? "",
+                                              details: response?.details ?? "",
+                                              date: response?.date ?? Date())
         self.response = response ?? Response(incidentNumber: "", details: "", date: Date())
         self.emergency = emergencyType
     }
@@ -48,18 +52,23 @@ class ResponseDetailsViewController: UIViewController {
     @IBAction func onSave(_ sender: Any) {
         navigationController?.popViewController(animated: true)
 
-        guard let response = response, let emergency = emergency else { return }
+        guard let emergency = emergency, let editResponse = editResponse else { return }
         view.endEditing(true)
         if !editMode {
-            emergency.add(response: response)
+            emergency.add(response: editResponse)
+        } else {
+            response?.incidentNumber = editResponse.incidentNumber
+            response?.details = editResponse.details
+            response?.date = editResponse.date
         }
+
         _ = EmergencyTypeDataSource.update(emergency: emergency)
 
     }
 
     @IBAction func onDatePicker(_ datePicker: UIDatePicker) {
         incidentDate.text = datePicker.date.toString()
-        response?.date = datePicker.date
+        editResponse?.date = datePicker.date
     }
 
     @objc func onDoneButton(_ button: UIButton) {
@@ -69,7 +78,7 @@ class ResponseDetailsViewController: UIViewController {
 
 extension ResponseDetailsViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
-        response?.incidentNumber = textField.text ?? ""
+        editResponse?.incidentNumber = textField.text ?? ""
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -79,7 +88,7 @@ extension ResponseDetailsViewController: UITextFieldDelegate {
 
 extension ResponseDetailsViewController: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
-        response?.details = textView.text
+        editResponse?.details = textView.text
     }
 }
 

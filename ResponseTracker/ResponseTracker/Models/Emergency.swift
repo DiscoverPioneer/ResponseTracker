@@ -5,7 +5,7 @@ private struct SerializationKeys {
     static let responses = "responses"
 }
 
-class Call: NSObject, NSCoding {
+class Emergency: NSObject, NSCoding {
     var type: String
     var responses: [Response]?
 
