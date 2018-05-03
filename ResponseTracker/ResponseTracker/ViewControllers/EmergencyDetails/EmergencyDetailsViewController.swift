@@ -13,6 +13,20 @@ class EmergencyDetailsViewController: UIViewController {
         tableView.separatorStyle = .none
 
         title = emergencyCall?.type ?? ""
+        handleEmptyDataIfNeeded()
+    }
+
+    private func handleEmptyDataIfNeeded() {
+        if emergencyCall?.responses?.isEmpty ?? true {
+            let emptyDataLabel = UILabel()
+            emptyDataLabel.text = "\(emergencyCall?.type ?? "") does not have any responses yet. Press the Responded button to add some."
+            emptyDataLabel.textAlignment = .center
+            emptyDataLabel.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
+            emptyDataLabel.numberOfLines = 0
+            tableView.backgroundView = emptyDataLabel
+        } else {
+            tableView.backgroundView = nil
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {

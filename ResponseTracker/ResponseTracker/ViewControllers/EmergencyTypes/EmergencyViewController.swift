@@ -13,11 +13,13 @@ class EmergencyViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         callsTableView.reloadData()
+        handleEmptyDataIfNeeded()
     }
 
-    func setupTableView() {
+    private func setupTableView() {
         callsTableView.delegate = self
         callsTableView.dataSource = self
+        handleEmptyDataIfNeeded()
 
         let header = UILabel()
         header.numberOfLines = 0
@@ -29,6 +31,19 @@ class EmergencyViewController: UIViewController {
 
     func getCalls() -> [Emergency] {
         return emergencyTypes
+    }
+
+    private func handleEmptyDataIfNeeded() {
+        if emergencyTypes.isEmpty {
+            let emptyDataLabel = UILabel()
+            emptyDataLabel.text = "Emergency calls have not been added yet. Press the Add Call button to add some."
+            emptyDataLabel.textAlignment = .center
+            emptyDataLabel.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
+            emptyDataLabel.numberOfLines = 0
+            callsTableView.backgroundView = emptyDataLabel
+        } else {
+            callsTableView.backgroundView = nil
+        }
     }
 
     //MARK: - Navigation Bar Actions
@@ -50,6 +65,7 @@ class EmergencyViewController: UIViewController {
                 } else {
                     self?.emergencyTypes.append(newEmergencyType)
                     self?.callsTableView.reloadData()
+                    self?.handleEmptyDataIfNeeded()
                 }
             })
         }
