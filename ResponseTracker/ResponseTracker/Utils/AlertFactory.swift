@@ -4,6 +4,11 @@ import UIKit
 typealias AlertCallback = ()-> ()
 
 class AlertFactory {
+    class func showOKAlert(message: String, callback: AlertCallback? = nil) {
+        let okButton = okAction(callback)
+        showAlert(nil, message: message, actions: [okButton])
+    }
+
     class func showOKCancelAlert(message: String, onOK okCallback: @escaping AlertCallback) {
         let okButton = okAction { okCallback() }
         let cancelButton = cancelAction(nil)

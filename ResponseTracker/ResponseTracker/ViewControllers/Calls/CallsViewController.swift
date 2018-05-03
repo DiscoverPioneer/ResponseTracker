@@ -3,7 +3,7 @@ import UIKit
 class CallsViewController: UIViewController {
     @IBOutlet weak var callsTableView: UITableView!
 
-    var calls: [Call] = CallsDataProvider.getCalls()
+    var calls: [Call] = EmergencyTypeDataSource.getEmergencyTypes() //CallsDataProvider.getCalls()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,8 +40,15 @@ class CallsViewController: UIViewController {
 
     @IBAction func onAddCall(_ sender: Any) {
         AlertFactory.showAddEmergencyTypeAlert { (emergencyType) in
-            //TODO: Add new emerency type
-            print("New emergency type \(emergencyType)")
+            let newEmergencyType = Call(type: emergencyType, responses: [])
+            EmergencyTypeDataSource.saveEmergencyType(emergency: newEmergencyType, callback: { [weak self] (success, error) in
+                if error != nil {
+                    AlertFactory.showOKAlert(message: error!.message)
+                } else {
+                    self?.calls.append(newEmergencyType)
+                    self?.callsTableView.reloadData()
+                }
+            })
         }
     }
 }

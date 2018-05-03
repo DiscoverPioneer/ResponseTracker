@@ -23,6 +23,7 @@
 		B9802F3C209A0AFE004A9BD5 /* PointsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9802F3B209A0AFE004A9BD5 /* PointsViewController.swift */; };
 		B9802F41209A0E23004A9BD5 /* EmergencyDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9802F40209A0E23004A9BD5 /* EmergencyDetailsViewController.swift */; };
 		B9802F43209A10AD004A9BD5 /* EmergencyDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9802F42209A10AD004A9BD5 /* EmergencyDetailCell.swift */; };
+		B9802F46209B1FA7004A9BD5 /* EmergencyTypeDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9802F45209B1FA7004A9BD5 /* EmergencyTypeDataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		B9802F3B209A0AFE004A9BD5 /* PointsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointsViewController.swift; sourceTree = "<group>"; };
 		B9802F40209A0E23004A9BD5 /* EmergencyDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyDetailsViewController.swift; sourceTree = "<group>"; };
 		B9802F42209A10AD004A9BD5 /* EmergencyDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyDetailCell.swift; sourceTree = "<group>"; };
+		B9802F45209B1FA7004A9BD5 /* EmergencyTypeDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyTypeDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 		B930CFAC20934DA900EB5980 /* ResponseTracker */ = {
 			isa = PBXGroup;
 			children = (
+				B9802F44209B1F83004A9BD5 /* DataSource */,
 				B930CFD32093730300EB5980 /* Utils */,
 				B930CFCA2093652400EB5980 /* ViewControllers */,
 				B930CFC420935CEF00EB5980 /* Models */,
@@ -151,6 +154,14 @@
 				B9802F42209A10AD004A9BD5 /* EmergencyDetailCell.swift */,
 			);
 			path = EmergencyDetails;
+			sourceTree = "<group>";
+		};
+		B9802F44209B1F83004A9BD5 /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				B9802F45209B1FA7004A9BD5 /* EmergencyTypeDataSource.swift */,
+			);
+			path = DataSource;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -229,6 +240,7 @@
 				B9802F372099EA04004A9BD5 /* ResponseDetailsViewController.swift in Sources */,
 				B9802F43209A10AD004A9BD5 /* EmergencyDetailCell.swift in Sources */,
 				B930CFB020934DA900EB5980 /* CallsViewController.swift in Sources */,
+				B9802F46209B1FA7004A9BD5 /* EmergencyTypeDataSource.swift in Sources */,
 				B9802F41209A0E23004A9BD5 /* EmergencyDetailsViewController.swift in Sources */,
 				B930CFC620935D0000EB5980 /* Call.swift in Sources */,
 				B930CFAE20934DA900EB5980 /* AppDelegate.swift in Sources */,
