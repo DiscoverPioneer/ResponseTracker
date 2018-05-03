@@ -10,6 +10,11 @@ class CallsViewController: UIViewController {
         setupTableView()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        callsTableView.reloadData()
+    }
+
     func setupTableView() {
         callsTableView.delegate = self
         callsTableView.dataSource = self
@@ -27,10 +32,12 @@ class CallsViewController: UIViewController {
     }
 
     //MARK: - Navigation Bar Actions
-    func onResponded(emergencyType: String) {
+    func onResponded(emergencyType: String, index: Int) {
         AlertFactory.showOKCancelAlert(message: "Confirm you responded to \(emergencyType)") { [weak self] in
-            guard let responseDetailsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: ResponseDetailsViewController.storyboardID) as? ResponseDetailsViewController else { return }
+            guard let responseDetailsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: ResponseDetailsViewController.storyboardID) as? ResponseDetailsViewController,
+                let emergencyType = self?.calls[index] else { return }
             self?.navigationController?.pushViewController(responseDetailsVC, animated: true)
+            responseDetailsVC.update(withEmergencyType: emergencyType)
         }
     }
 
@@ -62,7 +69,7 @@ extension CallsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CallCell.cellIdentifier, for: indexPath) as! CallCell
         cell.update(withCall: calls[indexPath.row]) { [weak self] (_, emergencyType) in
-            self?.onResponded(emergencyType: emergencyType)
+            self?.onResponded(emergencyType: emergencyType, index: indexPath.row)
         }
         return cell 
     }

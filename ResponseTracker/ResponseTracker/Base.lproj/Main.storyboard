@@ -254,6 +254,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="datePicker" destination="Nnx-qH-bcr" id="qCe-dF-6Ue"/>
+                        <outlet property="emergencyType" destination="nvk-Lg-bzJ" id="ZVg-mh-fil"/>
                         <outlet property="incidentDate" destination="Sor-80-8rD" id="8gn-pu-FwD"/>
                         <outlet property="incidentDetails" destination="GOj-tK-aG9" id="LH6-KF-SOm"/>
                         <outlet property="incidentNumber" destination="WPT-OS-AD0" id="pO2-px-kuf"/>

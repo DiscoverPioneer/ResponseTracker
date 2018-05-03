@@ -18,6 +18,11 @@ class Call: NSObject, NSCoding {
         return String(describing: responses?.count ?? 0)
     }
 
+    func add(response: Response) {
+        if responses == nil { responses = [] }
+        responses?.append(response)
+    }
+
     public func encode(with aCoder: NSCoder) {
         aCoder.encode(type, forKey: SerializationKeys.type)
         aCoder.encode(responses, forKey: SerializationKeys.responses)

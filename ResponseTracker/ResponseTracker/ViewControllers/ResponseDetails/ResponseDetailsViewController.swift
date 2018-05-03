@@ -9,25 +9,33 @@ class ResponseDetailsViewController: UIViewController {
     @IBOutlet weak var incidentDetails: UITextView!
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var incidentDate: UILabel!
+    @IBOutlet weak var emergencyType: UILabel!
 
-    private var response = Response(incidentNumber: "", details: "", date: Date())
+    private var emergency: Call?
+    private var response: Response?
+    private var editMode: Bool = false
 
     override func viewDidLoad() {
         setupViews()
     }
 
-    func update(withResponse response: Response) {
-        self.response = response
+    func update(withEmergencyType emergencyType: Call, response: Response? = nil) {
+        self.editMode = response != nil
+        title = editMode ? "Edit response" : "Add response"
+        self.response = response ?? Response(incidentNumber: "", details: "", date: Date())
+        self.emergency = emergencyType
     }
 
     func setupViews() {
-        incidentNumber.delegate = self
-        incidentNumber.text = response.incidentNumber
+        emergencyType.text = emergency?.type ?? ""
 
-        incidentDate.text = response.date.toString()
+        incidentNumber.delegate = self
+        incidentNumber.text = response?.incidentNumber
+
+        incidentDate.text = response?.date.toString()
 
         incidentDetails.delegate = self
-        incidentDetails.text = response.details
+        incidentDetails.text = response?.details
         incidentDetails.layer.borderColor = UIColor.lightGray.cgColor
 
         let accessory = UIToolbar(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 44))
@@ -38,13 +46,20 @@ class ResponseDetailsViewController: UIViewController {
 
     //MARK: - Actions
     @IBAction func onSave(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+
+        guard let response = response, let emergency = emergency else { return }
         view.endEditing(true)
-        //TODO
+        if !editMode {
+            emergency.add(response: response)
+        }
+        _ = EmergencyTypeDataSource.update(emergency: emergency)
+
     }
 
     @IBAction func onDatePicker(_ datePicker: UIDatePicker) {
         incidentDate.text = datePicker.date.toString()
-        response.date = datePicker.date
+        response?.date = datePicker.date
     }
 
     @objc func onDoneButton(_ button: UIButton) {
@@ -54,7 +69,7 @@ class ResponseDetailsViewController: UIViewController {
 
 extension ResponseDetailsViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
-        response.incidentNumber = textField.text ?? "" 
+        response?.incidentNumber = textField.text ?? ""
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -64,7 +79,7 @@ extension ResponseDetailsViewController: UITextFieldDelegate {
 
 extension ResponseDetailsViewController: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
-        response.details = textView.text
+        response?.details = textView.text
     }
 }
 

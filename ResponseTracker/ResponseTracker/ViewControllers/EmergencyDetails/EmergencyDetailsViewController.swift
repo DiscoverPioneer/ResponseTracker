@@ -11,6 +11,13 @@ class EmergencyDetailsViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
+
+        title = emergencyCall?.type ?? ""
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        tableView.reloadData()
     }
 
     func update(withEmergencyCall call: Call) {
@@ -34,8 +41,10 @@ extension EmergencyDetailsViewController: UITableViewDelegate, UITableViewDataSo
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let responseDetailsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: ResponseDetailsViewController.storyboardID) as? ResponseDetailsViewController else { return }
+        guard let responseDetailsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: ResponseDetailsViewController.storyboardID) as? ResponseDetailsViewController,
+            let emergencyType = emergencyCall else { return }
         self.navigationController?.pushViewController(responseDetailsVC, animated: true)
-        responseDetailsVC.update(withResponse: getEmergencyResponses()[indexPath.row])
+        responseDetailsVC.update(withEmergencyType: emergencyType,
+                                 response: getEmergencyResponses()[indexPath.row])
     }
 }
