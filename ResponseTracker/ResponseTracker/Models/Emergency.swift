@@ -18,9 +18,27 @@ class Emergency: NSObject, NSCoding {
         return String(describing: responses?.count ?? 0)
     }
 
+    func responsesCount() -> Int {
+        return responses?.count ?? 0
+    }
+
     func add(response: Response) {
         if responses == nil { responses = [] }
         responses?.append(response)
+    }
+
+    func remove(responseAtIndex index: Int) {
+        if index >= 0, index < responsesCount() {
+            responses?.remove(at: index)
+        }
+    }
+
+    func remove(response: Response) {
+        if let responses = responses, let index = responses.index(where: { (response) -> Bool in
+            return response == response
+        }) {
+            remove(responseAtIndex: responses.distance(from: responses.startIndex, to: index))
+        }
     }
 
     public func encode(with aCoder: NSCoder) {

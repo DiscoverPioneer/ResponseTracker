@@ -10,19 +10,23 @@ class ResponseDetailsViewController: UIViewController {
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var incidentDate: UILabel!
     @IBOutlet weak var emergencyType: UILabel!
-
+    @IBOutlet weak var datePickerHeught: NSLayoutConstraint!
+    @IBOutlet weak var changeDate: UIButton!
+    @IBOutlet weak var deleteResponse: UIButton!
+    
     private var emergency: Emergency?
     private var response: Response?
     private var editResponse: Response?
-    private var editMode: Bool = false
+    private var isEditMode: Bool = false
+    private let kDatePickerHeight: CGFloat = 216
 
     override func viewDidLoad() {
         setupViews()
     }
 
     func update(withEmergencyType emergencyType: Emergency, response: Response? = nil) {
-        self.editMode = response != nil
-        title = editMode ? "Edit response" : "Add response"
+        self.isEditMode = response != nil
+        title = isEditMode ? "Edit response" : "Add response"
         editResponse = Response(incidentNumber: response?.incidentNumber  ?? "",
                                               details: response?.details ?? "",
                                               date: response?.date ?? Date())
@@ -31,6 +35,10 @@ class ResponseDetailsViewController: UIViewController {
     }
 
     func setupViews() {
+        deleteResponse.isHidden = !isEditMode
+        changeDate.isHidden = !isEditMode
+        datePickerHeught.constant = isEditMode ? 0 : kDatePickerHeight
+
         emergencyType.text = emergency?.type ?? ""
 
         incidentNumber.delegate = self
@@ -54,7 +62,7 @@ class ResponseDetailsViewController: UIViewController {
 
         guard let emergency = emergency, let editResponse = editResponse else { return }
         view.endEditing(true)
-        if !editMode {
+        if !isEditMode {
             emergency.add(response: editResponse)
         } else {
             response?.incidentNumber = editResponse.incidentNumber
@@ -73,6 +81,25 @@ class ResponseDetailsViewController: UIViewController {
 
     @objc func onDoneButton(_ button: UIButton) {
         incidentDetails.resignFirstResponder()
+    }
+
+    @IBAction func onChangeDate(_ sender: UIButton) {
+        if datePickerHeught.constant == 0 {
+            UIView.animate(withDuration: 0.3) { [weak self] in
+                self?.datePickerHeught.constant = self?.kDatePickerHeight ?? 0
+                self?.view.layoutIfNeeded()
+                self?.changeDate.isHidden = true
+            }
+        }
+    }
+
+    @IBAction func onDelete(_ sender: UIButton) {
+        AlertFactory.showOKCancelAlert(message: "Are you sure?") { [weak self] in
+            self?.navigationController?.popViewController(animated: true)
+            guard let response = self?.response, let emergency = self?.emergency else { return }
+            emergency.remove(response: response)
+            _ = EmergencyTypeDataSource.update(emergency: emergency)
+        }
     }
 }
 

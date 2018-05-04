@@ -14,6 +14,7 @@ class EmergencyDetailsViewController: UIViewController {
 
         title = emergencyCall?.type ?? ""
         handleEmptyDataIfNeeded()
+        setupEditButton()
     }
 
     private func handleEmptyDataIfNeeded() {
@@ -29,9 +30,16 @@ class EmergencyDetailsViewController: UIViewController {
         }
     }
 
+    private func setupEditButton() {
+        if emergencyCall?.responsesCount() == 0 {
+            navigationItem.rightBarButtonItem?.isEnabled = false
+        }
+    }
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         tableView.reloadData()
+        handleEmptyDataIfNeeded()
     }
 
     func update(withEmergencyCall call: Emergency) {
@@ -40,6 +48,23 @@ class EmergencyDetailsViewController: UIViewController {
 
     func getEmergencyResponses() -> [Response] {
         return emergencyCall?.responses ?? []
+    }
+
+    func removeItem(atIndex index: IndexPath?) {
+        AlertFactory.showOKCancelAlert(message: "Are you sure?") { [weak self] in
+            guard let emergency = self?.emergencyCall, let index = index else { return }
+            emergency.remove(responseAtIndex: index.row)
+            _ = EmergencyTypeDataSource.update(emergency: emergency)
+            self?.tableView.deleteRows(at: [index], with: .left)
+            self?.setupEditButton()
+            self?.handleEmptyDataIfNeeded()
+        }
+    }
+
+    //MARK: - Actions
+    @IBAction func onEdit(_ sender: UIBarButtonItem) {
+        tableView.setEditing(!tableView.isEditing, animated: true)
+        navigationItem.rightBarButtonItem?.title = tableView.isEditing ? "Done" : "Edit"
     }
 }
 
@@ -60,5 +85,11 @@ extension EmergencyDetailsViewController: UITableViewDelegate, UITableViewDataSo
         self.navigationController?.pushViewController(responseDetailsVC, animated: true)
         responseDetailsVC.update(withEmergencyType: emergencyType,
                                  response: getEmergencyResponses()[indexPath.row])
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            removeItem(atIndex: indexPath)
+        }
     }
 }
