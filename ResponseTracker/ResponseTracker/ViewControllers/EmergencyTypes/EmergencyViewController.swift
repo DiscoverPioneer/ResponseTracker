@@ -46,13 +46,28 @@ class EmergencyViewController: UIViewController {
         }
     }
 
+    private func showResponseDetails(forEmergency emergency: Emergency) {
+        guard let responseDetailsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: ResponseDetailsViewController.storyboardID) as? ResponseDetailsViewController else { return }
+        self.navigationController?.pushViewController(responseDetailsVC, animated: true)
+        responseDetailsVC.update(withEmergencyType: emergency)
+    }
+
+    private func addEmptyResponse(forEmergency emergency: Emergency) {
+        let response = Response(incidentNumber: "", details: "", date: Date())
+        emergency.add(response: response)
+        _ = EmergencyTypeDataSource.update(emergency: emergency)
+        callsTableView.reloadData()
+    }
+
     //MARK: - Navigation Bar Actions
-    func onResponded(emergencyType: String, index: Int) {
-        AlertFactory.showOKCancelAlert(message: "Confirm you responded to \(emergencyType)") { [weak self] in
-            guard let responseDetailsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: ResponseDetailsViewController.storyboardID) as? ResponseDetailsViewController,
-                let emergencyType = self?.emergencyTypes[index] else { return }
-            self?.navigationController?.pushViewController(responseDetailsVC, animated: true)
-            responseDetailsVC.update(withEmergencyType: emergencyType)
+    func onResponded(index: Int) {
+        let emergency = emergencyTypes[index]
+        AlertFactory.showOKCancelAlert(message: "Confirm you responded to \(emergency.type)") { [weak self] in
+            AlertFactory.showDetailsAlert(message: "You responded to \(emergency.type)", onDone: { [weak self] in
+                self?.addEmptyResponse(forEmergency: emergency)
+            }, onDetails: { [weak self] in
+                self?.showResponseDetails(forEmergency: emergency)
+            })
         }
     }
 
@@ -81,7 +96,7 @@ extension EmergencyViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: EmergencyCell.cellIdentifier, for: indexPath) as! EmergencyCell
         cell.update(withEmergency: emergencyTypes[indexPath.row]) { [weak self] (_, emergencyType) in
-            self?.onResponded(emergencyType: emergencyType, index: indexPath.row)
+            self?.onResponded(index: indexPath.row)
         }
         return cell 
     }

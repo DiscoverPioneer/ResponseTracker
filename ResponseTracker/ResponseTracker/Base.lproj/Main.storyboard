@@ -83,7 +83,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Call Tracker" id="pPN-T9-Dlp">
                         <barButtonItem key="backBarButtonItem" title="Back" id="TqA-dV-Ldw"/>
-                        <barButtonItem key="leftBarButtonItem" title="Add Call" id="ncT-DY-5je">
+                        <barButtonItem key="leftBarButtonItem" systemItem="add" id="ncT-DY-5je">
                             <connections>
                                 <action selector="onAddCall:" destination="BYZ-38-t0r" id="Grk-O7-dKd"/>
                             </connections>
@@ -310,10 +310,10 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="changeDate" destination="Rrx-oy-FlA" id="NMO-3v-PCn"/>
+                        <outlet property="changeDate" destination="Rrx-oy-FlA" id="F0o-HN-sqs"/>
                         <outlet property="datePicker" destination="DdY-fW-Z8f" id="HGm-Xi-2tj"/>
                         <outlet property="datePickerHeught" destination="TPh-En-0BD" id="GUZ-fG-i4l"/>
-                        <outlet property="deleteResponse" destination="dd1-YS-81n" id="u7R-Xt-NPX"/>
+                        <outlet property="deleteResponse" destination="dd1-YS-81n" id="fNr-mD-eo8"/>
                         <outlet property="emergencyType" destination="QLi-20-Wcf" id="ct3-eD-xW3"/>
                         <outlet property="incidentDate" destination="M04-kN-eTS" id="nfh-pe-ZUU"/>
                         <outlet property="incidentDetails" destination="9Vk-fc-oMf" id="p24-sH-Dxz"/>
