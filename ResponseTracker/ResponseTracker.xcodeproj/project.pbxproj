@@ -17,6 +17,8 @@
 		B930CFCF209366B600EB5980 /* EmergencyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930CFCE209366B600EB5980 /* EmergencyCell.swift */; };
 		B930CFD52093731700EB5980 /* AlertFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930CFD42093731700EB5980 /* AlertFactory.swift */; };
 		B930CFD72093787700EB5980 /* UIApplicationExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930CFD62093787700EB5980 /* UIApplicationExt.swift */; };
+		B966381720A0594000E1CBA3 /* PointsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B966381620A0594000E1CBA3 /* PointsDataSource.swift */; };
+		B966381B20A07ACB00E1CBA3 /* Points.swift in Sources */ = {isa = PBXBuildFile; fileRef = B966381A20A07ACB00E1CBA3 /* Points.swift */; };
 		B9802F372099EA04004A9BD5 /* ResponseDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9802F362099EA04004A9BD5 /* ResponseDetailsViewController.swift */; };
 		B9802F392099EB78004A9BD5 /* DateExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9802F382099EB78004A9BD5 /* DateExt.swift */; };
 		B9802F3C209A0AFE004A9BD5 /* PointsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9802F3B209A0AFE004A9BD5 /* PointsViewController.swift */; };
@@ -38,6 +40,8 @@
 		B930CFCE209366B600EB5980 /* EmergencyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyCell.swift; sourceTree = "<group>"; };
 		B930CFD42093731700EB5980 /* AlertFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertFactory.swift; sourceTree = "<group>"; };
 		B930CFD62093787700EB5980 /* UIApplicationExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExt.swift; sourceTree = "<group>"; };
+		B966381620A0594000E1CBA3 /* PointsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointsDataSource.swift; sourceTree = "<group>"; };
+		B966381A20A07ACB00E1CBA3 /* Points.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Points.swift; sourceTree = "<group>"; };
 		B9802F362099EA04004A9BD5 /* ResponseDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseDetailsViewController.swift; sourceTree = "<group>"; };
 		B9802F382099EB78004A9BD5 /* DateExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExt.swift; sourceTree = "<group>"; };
 		B9802F3B209A0AFE004A9BD5 /* PointsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointsViewController.swift; sourceTree = "<group>"; };
@@ -94,6 +98,7 @@
 			children = (
 				B930CFC520935D0000EB5980 /* Emergency.swift */,
 				B930CFC720935D1A00EB5980 /* Response.swift */,
+				B966381A20A07ACB00E1CBA3 /* Points.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -157,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				B9802F45209B1FA7004A9BD5 /* EmergencyTypeDataSource.swift */,
+				B966381620A0594000E1CBA3 /* PointsDataSource.swift */,
 			);
 			path = DataSource;
 			sourceTree = "<group>";
@@ -236,6 +242,8 @@
 				B930CFC820935D1A00EB5980 /* Response.swift in Sources */,
 				B9802F372099EA04004A9BD5 /* ResponseDetailsViewController.swift in Sources */,
 				B9802F43209A10AD004A9BD5 /* EmergencyDetailCell.swift in Sources */,
+				B966381B20A07ACB00E1CBA3 /* Points.swift in Sources */,
+				B966381720A0594000E1CBA3 /* PointsDataSource.swift in Sources */,
 				B930CFB020934DA900EB5980 /* EmergencyViewController.swift in Sources */,
 				B9802F46209B1FA7004A9BD5 /* EmergencyTypeDataSource.swift in Sources */,
 				B9802F41209A0E23004A9BD5 /* EmergencyDetailsViewController.swift in Sources */,

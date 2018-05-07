@@ -4,12 +4,14 @@ enum DataError {
     case alreadyExists
     case errorReadingData
     case errorWritingData
+    case errorClearData
 
     var message: String {
         switch self {
         case .alreadyExists: return "Emergency type already exists"
         case .errorReadingData: return "Error reading data"
         case .errorWritingData: return "Emergency type could not be saved!"
+        case .errorClearData: return "Data could not be cleared"
         }
     }
 }
@@ -54,5 +56,30 @@ class EmergencyTypeDataSource {
         } else {
             return false
         }
+    }
+
+    class func clearAllData(callback: SaveDataBlock)  {
+        guard let fileURL = EmergencyTypeDataSource.fileURL, !getEmergencyTypes().isEmpty else { print("Error"); return }
+        do {
+            try FileManager.default.removeItem(at: fileURL)
+            callback(true, nil)
+        } catch {
+            print("error \(error.localizedDescription)")
+            callback(false, DataError.errorClearData)
+        }
+    }
+
+    class func save(lastResponse: Response) {
+        UserDefaults.standard.set(lastResponse, forKey: "last_response")
+        UserDefaults.standard.synchronize()
+    }
+
+    class func getLastResponse() -> Response? {
+       return UserDefaults.standard.value(forKey: "last_response") as? Response
+    }
+
+    class func clearLastResponse() {
+        UserDefaults.standard.removeObject(forKey: "last_response")
+        UserDefaults.standard.synchronize()
     }
 }

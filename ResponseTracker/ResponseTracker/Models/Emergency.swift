@@ -27,6 +27,13 @@ class Emergency: NSObject, NSCoding {
         responses?.append(response)
     }
 
+    func edit(response: Response, newValue: Response) {
+        guard let index = responses?.index(of: response),
+            let startIndex = responses?.startIndex,
+            let distance = responses?.distance(from: startIndex, to: index) else { return }
+        responses![distance] = newValue
+    }
+
     func remove(responseAtIndex index: Int) {
         if index >= 0, index < responsesCount() {
             responses?.remove(at: index)

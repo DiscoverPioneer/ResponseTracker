@@ -4,6 +4,7 @@ class EmergencyViewController: UIViewController {
     @IBOutlet weak var callsTableView: UITableView!
 
     var emergencyTypes: [Emergency] = EmergencyTypeDataSource.getEmergencyTypes()
+    let points: Points = PointsDataSource.getPoints()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +24,7 @@ class EmergencyViewController: UIViewController {
 
         let header = UILabel()
         header.numberOfLines = 0
-        header.text = "Total Monthly Points: 3\nTotal Yearly Points: 14"
+        header.text = "Total Monthly Points: \(points.currentMonth)\nTotal Yearly Points: \(points.currentYear)"
         header.textAlignment = .center
         header.frame = CGRect(x: 0, y: 0, width: view.frame.width - 20, height: 50)
         callsTableView.tableHeaderView = header
@@ -55,6 +56,7 @@ class EmergencyViewController: UIViewController {
     private func addEmptyResponse(forEmergency emergency: Emergency) {
         let response = Response(incidentNumber: "", details: "", date: Date())
         emergency.add(response: response)
+
         _ = EmergencyTypeDataSource.update(emergency: emergency)
         callsTableView.reloadData()
     }
@@ -84,6 +86,13 @@ class EmergencyViewController: UIViewController {
                 }
             })
         }
+    }
+
+    @IBAction func onShowPoints(_ sender: Any) {
+        guard let pointsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: PointsViewController.storyboardID) as? PointsViewController else { return }
+        let lastRepsonse = EmergencyTypeDataSource.getLastResponse()
+        pointsVC.update(withPoints: points, lastResponse: lastRepsonse)
+        navigationController?.pushViewController(pointsVC, animated: true)
     }
 }
 

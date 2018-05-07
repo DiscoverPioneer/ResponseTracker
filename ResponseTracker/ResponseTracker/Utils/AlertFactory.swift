@@ -35,6 +35,15 @@ class AlertFactory {
         presentAlert(alertController)
     }
 
+    class func showAddPointsAlert(onOK okCallback: @escaping (_ points: Int) -> ()) {
+        let alertController = UIAlertController(title: "Add points", message: nil, preferredStyle: .alert)
+        alertController.addTextField(configurationHandler: { (textField) in
+            textField.keyboardType = .numberPad
+        })
+        alertController.addAction(okAction({ okCallback(Int(alertController.textFields?[0].text ?? "") ?? 0)}))
+        presentAlert(alertController)
+    }
+
     //MARK: Private methods
     fileprivate class func presentAlert(_ alert: UIAlertController) {
         DispatchQueue.main.async {
