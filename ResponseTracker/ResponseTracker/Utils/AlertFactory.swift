@@ -30,8 +30,16 @@ class AlertFactory {
     class func showAddEmergencyTypeAlert(onOK okCallback: @escaping (_ emergencyType: String) -> ()) {
         let alertController = UIAlertController(title: "Add emergency type", message: nil, preferredStyle: .alert)
         alertController.addTextField(configurationHandler: nil)
-        alertController.addAction(okAction({ okCallback(alertController.textFields?[0].text ?? "")}))
+        
+        let okButton = okAction {
+            if alertController.textFields?[0].text?.isEmpty ?? true {
+                showOKAlert(message: "Emergency type can not be empty!")
+            } else {
+                okCallback(alertController.textFields?[0].text ?? "")
+            }
+        }
 
+        alertController.addAction(okButton)
         presentAlert(alertController)
     }
 
