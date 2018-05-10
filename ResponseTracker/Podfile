@@ -4,6 +4,6 @@
 target 'ResponseTracker' do
  use_frameworks!
 	
-pod 'Realm', '~>3.1'
+pod 'RealmSwift', '~>3.1'
 
 end
