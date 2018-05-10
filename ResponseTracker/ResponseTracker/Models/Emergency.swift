@@ -1,61 +1,45 @@
 import Foundation
+import RealmSwift
 
 private struct SerializationKeys {
     static let type = "type"
     static let responses = "responses"
 }
 
-class Emergency: NSObject, NSCoding {
-    var type: String
-    var responses: [Response]?
+class Emergency: Object { // NSObject, NSCoding {
+    @objc dynamic var type: String = ""
+    let responses = List<Response>()
 
-    init(type: String, responses: [Response]?) {
+    convenience init(type: String, responses: [Response]?) {
+        self.init()
         self.type = type
-        self.responses = responses
+
+        guard let responses = responses else { return }
+        self.responses.append(objectsIn: responses)
     }
 
     func responsesCount() -> String {
-        return String(describing: responses?.count ?? 0)
+        return String(describing: responses.count)
     }
 
     func responsesCount() -> Int {
-        return responses?.count ?? 0
+        return responses.count
     }
 
     func add(response: Response) {
-        if responses == nil { responses = [] }
-        responses?.append(response)
-    }
-
-    func edit(response: Response, newValue: Response) {
-        guard let index = responses?.index(of: response),
-            let startIndex = responses?.startIndex,
-            let distance = responses?.distance(from: startIndex, to: index) else { return }
-        responses![distance] = newValue
+        responses.append(response)
     }
 
     func remove(responseAtIndex index: Int) {
         if index >= 0, index < responsesCount() {
-            responses?.remove(at: index)
+            responses.remove(at: index)
         }
     }
 
     func remove(response: Response) {
-        if let responses = responses, let index = responses.index(where: { (response) -> Bool in
-            return response == response
-        }) {
-            remove(responseAtIndex: responses.distance(from: responses.startIndex, to: index))
+        if let index = responses.index(of: response) {
+            responses.remove(at: index)
         }
-    }
-
-    public func encode(with aCoder: NSCoder) {
-        aCoder.encode(type, forKey: SerializationKeys.type)
-        aCoder.encode(responses, forKey: SerializationKeys.responses)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        type = aDecoder.decodeObject(forKey: SerializationKeys.type) as? String ?? ""
-        responses = aDecoder.decodeObject(forKey: SerializationKeys.responses) as? [Response]
     }
 }
 

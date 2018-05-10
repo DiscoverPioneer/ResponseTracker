@@ -12,24 +12,37 @@ extension Date {
         return dateFormatter.string(from: self)
     }
 
-    func isStartOfMonth() -> Bool {
+    func startOfMonth() -> Date {
         let components = Calendar.current.dateComponents([.year, .month], from: self)
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        dateFormatter.locale = Locale.current
-        print("start of month \(dateFormatter.string(from: Calendar.current.date(from: components)!))")
-
-        return dateFormatter.string(from: Calendar.current.date(from: components)!) == self.toString("yyyy-MM-dd")
+        let utcDate = dateFrom(components: components)
+        return toLocal(date: utcDate)
     }
 
-    func isStartOfYear() -> Bool {
+    func startOfYear() -> Date {
         let components = Calendar.current.dateComponents([.year], from: self)
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        dateFormatter.locale = Locale.current
-        print("start of year \(dateFormatter.string(from: Calendar.current.date(from: components)!))")
+        let utcDate = dateFrom(components: components)
+        return toLocal(date: utcDate)
+    }
 
-        return dateFormatter.string(from: Calendar.current.date(from: components)!) == self.toString("yyyy-MM-dd")
+    func startOfPreviousMonth() -> Date {
+        var components = Calendar.current.dateComponents([.year, .month], from: self)
+        if components.month != nil {
+            components.month! -= 1
+        }
+        let utcDate = dateFrom(components: components)
+        return toLocal(date: utcDate)
+    }
+
+    func dateFrom(components: DateComponents) -> Date {
+        var calendar = Calendar.current
+        calendar.timeZone = NSTimeZone.default
+        return calendar.date(from: components)!
+    }
+
+    func toLocal(date: Date) -> Date {
+        let timeZone = NSTimeZone.local
+        let seconds = timeZone.secondsFromGMT(for: date)
+        return Date(timeInterval: Double(seconds), since: date)
     }
 }
 

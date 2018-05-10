@@ -33,5 +33,22 @@ class Points: NSObject, NSCoding {
         previousMonth = aDecoder.decodeInteger(forKey: SerializationKeys.previousMonth)
         all = aDecoder.decodeInteger(forKey: SerializationKeys.all)
     }
+
+    func increaseCurrent(by points: Int) {
+        all += points
+        currentMonth += points
+        currentYear += points
+    }
+
+    func clearPoints() {
+        all = 0
+        currentYear = 0
+        currentMonth = 0
+        previousMonth = 0 
+    }
+
+    func isEmpty() -> Bool {
+        return currentYear == 0 && currentMonth == 0 && all == 0
+    }
 }
 
