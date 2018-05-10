@@ -11,7 +11,7 @@ enum DataError {
         switch self {
         case .alreadyExists: return "Emergency type already exists"
         case .errorReadingData: return "Error reading data"
-        case .errorWritingData: return "Emergency type could not be saved!"
+        case .errorWritingData: return "Data could not be saved!"
         case .errorClearData: return "Data could not be cleared"
         }
     }
@@ -45,33 +45,57 @@ class DataManager {
         return lastResonse
     }
 
-    func add(emergency: Emergency) {
-        try! defaultRealm.write {
-            emergencyTypes.append(emergency)
+    func add(emergency: Emergency, callback: DataOperationSuccessBlock) {
+        do {
+            try defaultRealm.write {
+                if alreadyExists(newEmergency: emergency){
+                    callback(false, DataError.alreadyExists)
+                } else {
+                    emergencyTypes.append(emergency)
+                    callback(true, nil)
+                }
+            }
+        } catch {
+            callback(true, DataError.errorWritingData)
         }
     }
 
-    func add(response: Response, toEmergency emergency: Emergency) {
-        try! defaultRealm.write {
-            emergency.add(response: response)
-            defaultRealm.add(response)
-            points = loadPoints()
+    func add(response: Response, toEmergency emergency: Emergency, callback: DataOperationSuccessBlock) {
+        do {
+            try defaultRealm.write {
+                emergency.add(response: response)
+                defaultRealm.add(response)
+                points = loadPoints()
+                callback(true, nil)
+            }
+        } catch {
+            callback(false, DataError.errorWritingData)
         }
     }
 
-    func remove(response: Response, fromEmergency emergency: Emergency) {
-        try! defaultRealm.write {
-            emergency.remove(response: response)
-            defaultRealm.delete(response)
-            points = loadPoints()
+    func remove(response: Response, fromEmergency emergency: Emergency, callback: DataOperationSuccessBlock) {
+        do {
+            try defaultRealm.write {
+                emergency.remove(response: response)
+                defaultRealm.delete(response)
+                points = loadPoints()
+                callback(true, nil)
+            }
+        } catch {
+            callback(false, DataError.errorClearData)
         }
     }
 
-    func update(response: Response, newValue: Response) {
-        try! defaultRealm.write {
-            response.date = newValue.date
-            response.details = newValue.details
-            response.incidentNumber = newValue.incidentNumber
+    func update(response: Response, newValue: Response, callback: DataOperationSuccessBlock) {
+        do {
+            try defaultRealm.write {
+                response.date = newValue.date
+                response.details = newValue.details
+                response.incidentNumber = newValue.incidentNumber
+                callback(true, nil)
+            }
+        } catch {
+            callback(false, DataError.errorWritingData)
         }
     }
 
@@ -86,7 +110,8 @@ class DataManager {
             try defaultRealm.commitWrite()
             self.emergencyTypes = []
             self.points.clearPoints()
-            self.lastResonse = nil 
+            self.lastResonse = nil
+            callback(true, nil)
         } catch {
             callback(false, DataError.errorClearData)
         }
@@ -105,6 +130,12 @@ class DataManager {
     func clearPoints() {
         lastClearPoints(date: Date())
         self.points.clearPoints()
+    }
+
+    fileprivate func alreadyExists(newEmergency: Emergency) -> Bool {
+        return emergencyTypes.filter({ (emergency) -> Bool in
+            return emergency.type == newEmergency.type
+        }).count != 0
     }
 
     private func getPresetPoints() -> [[String: Any]] {
@@ -163,8 +194,12 @@ class DataManager {
 
     private func saveEmergencyTypes(emergencyTypes: [Emergency], callback: DataOperationSuccessBlock) {
         for emergency in emergencyTypes {
-            try! defaultRealm.write {
-                defaultRealm.add(emergency)
+            do {
+                try defaultRealm.write {
+                    defaultRealm.add(emergency)
+                }
+            } catch {
+                callback(false, DataError.errorWritingData)
             }
         }
     }

@@ -15,16 +15,20 @@ class EmergencyViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        loadData()
-        setupPoints()
-        callsTableView.reloadData()
-        handleEmptyDataIfNeeded()
+        reloadData()
     }
 
     private func loadData() {
         points = DataManager.shared.getPoints()
         emergencyTypes = DataManager.shared.getEmergencyTypes()
         lastResponse = DataManager.shared.getLastResponse()
+    }
+
+    private func reloadData() {
+        loadData()
+        callsTableView.reloadData()
+        setupPoints()
+        handleEmptyDataIfNeeded()
     }
 
     private func setupTableView() {
@@ -76,22 +80,31 @@ class EmergencyViewController: UIViewController {
     }
 
     private func handleNew(response: Response, toEmergency emergency: Emergency) {
-        DataManager.shared.add(response: response, toEmergency: emergency)
-        callsTableView.reloadData()
-        lastResponse = response
-        loadData()
-        setupPoints()
+        DataManager.shared.add(response: response, toEmergency: emergency, callback: { [weak self] (success, error) in
+            if error != nil {
+                AlertFactory.showOKAlert(message: error!.message)
+            } else {
+                self?.reloadData()
+            }
+        })
     }
 
     func handleRemoved(response: Response, fromEmergency emergency: Emergency ) {
-        DataManager.shared.remove(response: response, fromEmergency: emergency)
-        callsTableView.reloadData()
-        loadData()
-        setupPoints()
+        DataManager.shared.remove(response: response, fromEmergency: emergency, callback: { [weak self] (success, error) in
+            if error != nil {
+                AlertFactory.showOKAlert(message: error!.message)
+            } else {
+                self?.reloadData()
+            }
+        })
     }
 
     func handleChanged(response: Response, newValue: Response) {
-        DataManager.shared.update(response: response, newValue: newValue)
+        DataManager.shared.update(response: response, newValue: newValue, callback: { (success, error) in
+            if error != nil {
+                AlertFactory.showOKAlert(message: error!.message)
+            }
+        })
     }
 
     //MARK: - Navigation Bar Actions
@@ -109,10 +122,13 @@ class EmergencyViewController: UIViewController {
     @IBAction func onAddCall(_ sender: Any) {
         AlertFactory.showAddEmergencyTypeAlert { [weak self] (emergencyType) in
             let newEmergencyType = Emergency(type: emergencyType, responses: [])
-            DataManager.shared.add(emergency: newEmergencyType)
-            self?.emergencyTypes.append(newEmergencyType)
-            self?.callsTableView.reloadData()
-            self?.handleEmptyDataIfNeeded()
+            DataManager.shared.add(emergency: newEmergencyType, callback: { [weak self] (success, error) in
+                if error != nil {
+                    AlertFactory.showOKAlert(message: error!.message)
+                } else {
+                    self?.reloadData()
+                }
+            })
         }
     }
 
