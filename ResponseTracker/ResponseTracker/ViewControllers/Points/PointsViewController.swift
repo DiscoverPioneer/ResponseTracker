@@ -30,9 +30,11 @@ class PointsViewController: UIViewController {
     }
 
     @IBAction func onResetPoints(_ sender: Any) {
-        DataManager.shared.clearPoints()
-        points?.clearPoints()
-        setupPoints()
+        AlertFactory.showOKCancelAlert(message: "This action can not be undone!", onOK: { [weak self] in
+            DataManager.shared.clearPoints()
+            self?.points?.clearPoints()
+            self?.setupPoints()
+        })
     }
     
     @IBAction func addPoints(_ sender: Any) {
