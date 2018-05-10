@@ -18,4 +18,8 @@ class Response: Object{ //}: NSObject, NSCoding {
         self.details = details
         self.date = date
     }
+
+    func toCSV() -> String {
+        return incidentNumber + "," + date.toString() + "," + details
+    }
 }

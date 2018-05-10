@@ -6,6 +6,7 @@ enum DataError {
     case errorReadingData
     case errorWritingData
     case errorClearData
+    case errorExportingData
 
     var message: String {
         switch self {
@@ -13,6 +14,7 @@ enum DataError {
         case .errorReadingData: return "Error reading data"
         case .errorWritingData: return "Data could not be saved!"
         case .errorClearData: return "Data could not be cleared"
+        case .errorExportingData: return "Error exporting data"
         }
     }
 }
@@ -52,6 +54,7 @@ class DataManager {
                     callback(false, DataError.alreadyExists)
                 } else {
                     emergencyTypes.append(emergency)
+                    defaultRealm.add(emergency)
                     callback(true, nil)
                 }
             }
@@ -132,6 +135,25 @@ class DataManager {
         self.points.clearPoints()
     }
 
+    func export() {
+        let fileName = "EmergencyResponses.csv"
+        let path = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)
+
+        var csv = "Emergency type, Incident number, Date, Details\n"
+
+        for emergency in emergencyTypes {
+            csv += emergency.toCSV()
+        }
+
+        do {
+            try csv.write(to: path, atomically: true, encoding: .utf8)
+            AlertFactory.showExportActivity(path: path)
+        } catch {
+            AlertFactory.showOKAlert(message: DataError.errorExportingData.message)
+        }
+    }
+
+    //MARK: - Private Methids
     fileprivate func alreadyExists(newEmergency: Emergency) -> Bool {
         return emergencyTypes.filter({ (emergency) -> Bool in
             return emergency.type == newEmergency.type

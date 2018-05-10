@@ -6,7 +6,7 @@ private struct SerializationKeys {
     static let responses = "responses"
 }
 
-class Emergency: Object { // NSObject, NSCoding {
+class Emergency: Object {
     @objc dynamic var type: String = ""
     let responses = List<Response>()
 
@@ -40,6 +40,17 @@ class Emergency: Object { // NSObject, NSCoding {
         if let index = responses.index(of: response) {
             responses.remove(at: index)
         }
+    }
+
+    func toCSV() -> String {
+        var csvString = ""
+        for response in responses {
+            csvString += type + "," + response.toCSV()
+            if responses.last != responses {
+                csvString += "\n"
+            }
+        }
+        return csvString
     }
 }
 

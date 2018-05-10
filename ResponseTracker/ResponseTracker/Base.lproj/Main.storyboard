@@ -117,7 +117,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b11-qJ-HmG">
-                                <rect key="frame" x="141" y="607" width="93" height="30"/>
+                                <rect key="frame" x="15" y="607" width="93" height="30"/>
                                 <state key="normal" title="Clear All Data"/>
                                 <connections>
                                     <action selector="onClearData:" destination="o6q-aW-GPf" eventType="touchUpInside" id="S3z-RE-fKj"/>
@@ -137,20 +137,29 @@
                                     <action selector="onResetPoints:" destination="o6q-aW-GPf" eventType="touchUpInside" id="eJ4-PV-6hR"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FoU-xz-1nr">
+                                <rect key="frame" x="279" y="607" width="81" height="30"/>
+                                <state key="normal" title="Export Data"/>
+                                <connections>
+                                    <action selector="onExportData:" destination="o6q-aW-GPf" eventType="touchUpInside" id="twc-ma-loG"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="l3c-VI-aMz" firstAttribute="leading" secondItem="4Rb-5X-YIy" secondAttribute="leading" constant="15" id="4ZL-d5-y9i"/>
-                            <constraint firstItem="b11-qJ-HmG" firstAttribute="centerX" secondItem="czl-lI-KoS" secondAttribute="centerX" id="4tF-0Q-okQ"/>
                             <constraint firstItem="l3c-VI-aMz" firstAttribute="top" secondItem="4Rb-5X-YIy" secondAttribute="top" constant="30" id="FmR-fx-0tL"/>
                             <constraint firstItem="hSC-QX-kuV" firstAttribute="centerY" secondItem="swN-7a-wvq" secondAttribute="centerY" id="J2p-CN-uZo"/>
                             <constraint firstItem="swN-7a-wvq" firstAttribute="leading" secondItem="4Rb-5X-YIy" secondAttribute="leading" constant="15" id="KqZ-jh-Hl4"/>
                             <constraint firstItem="4Rb-5X-YIy" firstAttribute="bottom" secondItem="b11-qJ-HmG" secondAttribute="bottom" constant="30" id="QPK-vb-bzH"/>
                             <constraint firstItem="swN-7a-wvq" firstAttribute="top" relation="greaterThanOrEqual" secondItem="l3c-VI-aMz" secondAttribute="bottom" constant="10" id="QxL-3M-wZy"/>
+                            <constraint firstItem="FoU-xz-1nr" firstAttribute="top" secondItem="hSC-QX-kuV" secondAttribute="bottom" constant="15" id="Zkq-oY-olS"/>
                             <constraint firstItem="hSC-QX-kuV" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="swN-7a-wvq" secondAttribute="trailing" constant="10" id="aRQ-bt-EJS"/>
                             <constraint firstItem="4Rb-5X-YIy" firstAttribute="trailing" secondItem="l3c-VI-aMz" secondAttribute="trailing" constant="15" id="gKi-bg-HEB"/>
                             <constraint firstItem="4Rb-5X-YIy" firstAttribute="trailing" secondItem="hSC-QX-kuV" secondAttribute="trailing" constant="15" id="saU-Ts-kaW"/>
+                            <constraint firstItem="4Rb-5X-YIy" firstAttribute="trailing" secondItem="FoU-xz-1nr" secondAttribute="trailing" constant="15" id="sxS-aj-rrO"/>
                             <constraint firstItem="b11-qJ-HmG" firstAttribute="top" secondItem="swN-7a-wvq" secondAttribute="bottom" constant="15" id="uAJ-kw-zv5"/>
+                            <constraint firstItem="b11-qJ-HmG" firstAttribute="leading" secondItem="4Rb-5X-YIy" secondAttribute="leading" constant="15" id="wMy-L6-4xP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4Rb-5X-YIy"/>
                     </view>

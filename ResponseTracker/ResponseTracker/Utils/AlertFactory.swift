@@ -40,7 +40,7 @@ class AlertFactory {
         }
 
         alertController.addAction(okButton)
-        presentAlert(alertController)
+        present(alert:alertController)
     }
 
     class func showAddPointsAlert(onOK okCallback: @escaping (_ points: Int) -> ()) {
@@ -49,13 +49,24 @@ class AlertFactory {
             textField.keyboardType = .numberPad
         })
         alertController.addAction(okAction({ okCallback(Int(alertController.textFields?[0].text ?? "") ?? 0)}))
-        presentAlert(alertController)
+        present(alert:alertController)
+    }
+
+    class func showExportActivity(path: URL) {
+        let activityController = UIActivityViewController(activityItems: [path], applicationActivities: nil)
+        present(viewController: activityController)
     }
 
     //MARK: Private methods
-    fileprivate class func presentAlert(_ alert: UIAlertController) {
+    fileprivate class func present(alert: UIAlertController) {
         DispatchQueue.main.async {
             UIApplication.findPresentedViewController()?.present(alert, animated: true)
+        }
+    }
+
+    fileprivate class func present(viewController: UIViewController) {
+        DispatchQueue.main.async {
+            UIApplication.findPresentedViewController()?.present(viewController, animated: true)
         }
     }
 
@@ -64,7 +75,7 @@ class AlertFactory {
         for action in actions {
             alertController.addAction(action)
         }
-        presentAlert(alertController)
+        present(alert: alertController)
     }
 
     //MARK: Alert Actions

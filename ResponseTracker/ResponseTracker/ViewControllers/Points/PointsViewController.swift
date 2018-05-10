@@ -52,4 +52,7 @@ class PointsViewController: UIViewController {
         })
 
     }
+    @IBAction func onExportData(_ sender: Any) {
+        DataManager.shared.export()
+    }
 }
