@@ -1,9 +1,13 @@
 import Foundation
 import UIKit
 
+typealias ResponseAddCallback = (_ newResponse: Response) -> ()
+typealias ResponseEditCallback = (_ response: Response, _ newValue: Response) -> ()
+
 class ResponseDetailsViewController: UIViewController {
 
     static let storyboardID = "ResponseDetailsViewController"
+    private let kDatePickerHeight: CGFloat = 216
 
     @IBOutlet weak var incidentNumber: UITextField!
     @IBOutlet weak var incidentDetails: UITextView!
@@ -18,13 +22,18 @@ class ResponseDetailsViewController: UIViewController {
     private var response: Response?
     private var editResponse: Response?
     private var isEditMode: Bool = false
-    private let kDatePickerHeight: CGFloat = 216
+
+    private var responseChangedCallback: ResponseEditCallback?
+    private var responseAddedCallback: ResponseAddCallback?
 
     override func viewDidLoad() {
         setupViews()
     }
 
-    func update(withEmergencyType emergencyType: Emergency, response: Response? = nil) {
+    func update(withEmergencyType emergencyType: Emergency,
+                response: Response? = nil,
+                responseAddedBlock: (ResponseAddCallback)?,
+                resposeChangedBlock: (ResponseEditCallback)?) {
         self.isEditMode = response != nil
         title = isEditMode ? "Edit response" : "Add response"
         editResponse = Response(incidentNumber: response?.incidentNumber  ?? "",
@@ -32,6 +41,8 @@ class ResponseDetailsViewController: UIViewController {
                                               date: response?.date ?? Date())
         self.response = response ?? Response(incidentNumber: "", details: "", date: Date())
         self.emergency = emergencyType
+        self.responseAddedCallback = responseAddedBlock
+        self.responseChangedCallback = resposeChangedBlock
     }
 
     func setupViews() {
@@ -60,18 +71,14 @@ class ResponseDetailsViewController: UIViewController {
     @IBAction func onSave(_ sender: Any) {
         navigationController?.popViewController(animated: true)
 
-        guard let emergency = emergency, let editResponse = editResponse else { return }
+        guard let editResponse = editResponse else { return }
         view.endEditing(true)
         if !isEditMode {
-            emergency.add(response: editResponse)
+            responseAddedCallback?(editResponse)
         } else {
-            response?.incidentNumber = editResponse.incidentNumber
-            response?.details = editResponse.details
-            response?.date = editResponse.date
+            guard let response = response else { return }
+            responseChangedCallback?(response, editResponse)
         }
-
-        _ = EmergencyTypeDataSource.update(emergency: emergency)
-
     }
 
     @IBAction func onDatePicker(_ datePicker: UIDatePicker) {
@@ -96,9 +103,8 @@ class ResponseDetailsViewController: UIViewController {
     @IBAction func onDelete(_ sender: UIButton) {
         AlertFactory.showOKCancelAlert(message: "Are you sure?") { [weak self] in
             self?.navigationController?.popViewController(animated: true)
-            guard let response = self?.response, let emergency = self?.emergency else { return }
-            emergency.remove(response: response)
-            _ = EmergencyTypeDataSource.update(emergency: emergency)
+            guard let response = self?.response else { return }
+            self?.responseAddedCallback?(response)
         }
     }
 }

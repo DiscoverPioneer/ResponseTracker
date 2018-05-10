@@ -2,9 +2,11 @@ import UIKit
 
 class EmergencyViewController: UIViewController {
     @IBOutlet weak var callsTableView: UITableView!
+    private var pointsLabel = UILabel()
 
-    var emergencyTypes: [Emergency] = EmergencyTypeDataSource.getEmergencyTypes()
-    let points: Points = PointsDataSource.getPoints()
+    var emergencyTypes: [Emergency] = []
+    var points: Points = Points(currentYear: 0, currentMonth: 0, previousMonth: 0, all: 0)
+    var lastResponse: Response?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -13,8 +15,16 @@ class EmergencyViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        loadData()
+        setupPoints()
         callsTableView.reloadData()
         handleEmptyDataIfNeeded()
+    }
+
+    private func loadData() {
+        points = DataManager.shared.getPoints()
+        emergencyTypes = DataManager.shared.getEmergencyTypes()
+        lastResponse = DataManager.shared.getLastResponse()
     }
 
     private func setupTableView() {
@@ -22,12 +32,14 @@ class EmergencyViewController: UIViewController {
         callsTableView.dataSource = self
         handleEmptyDataIfNeeded()
 
-        let header = UILabel()
-        header.numberOfLines = 0
-        header.text = "Total Monthly Points: \(points.currentMonth)\nTotal Yearly Points: \(points.currentYear)"
-        header.textAlignment = .center
-        header.frame = CGRect(x: 0, y: 0, width: view.frame.width - 20, height: 50)
-        callsTableView.tableHeaderView = header
+        pointsLabel.numberOfLines = 0
+        pointsLabel.textAlignment = .center
+        pointsLabel.frame = CGRect(x: 0, y: 0, width: view.frame.width - 20, height: 50)
+        callsTableView.tableHeaderView = pointsLabel
+    }
+
+    private func setupPoints() {
+        pointsLabel.text = "Total Monthly Points: \(points.currentMonth)\nTotal Yearly Points: \(points.currentYear)"
     }
 
     func getCalls() -> [Emergency] {
@@ -50,15 +62,36 @@ class EmergencyViewController: UIViewController {
     private func showResponseDetails(forEmergency emergency: Emergency) {
         guard let responseDetailsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: ResponseDetailsViewController.storyboardID) as? ResponseDetailsViewController else { return }
         self.navigationController?.pushViewController(responseDetailsVC, animated: true)
-        responseDetailsVC.update(withEmergencyType: emergency)
+        responseDetailsVC.update(withEmergencyType: emergency,
+                                 responseAddedBlock: { [weak self] (response) in
+                                    self?.handleNew(response: response, toEmergency: emergency)
+                                    self?.setupPoints()
+            },
+                                 resposeChangedBlock: nil)
     }
 
     private func addEmptyResponse(forEmergency emergency: Emergency) {
         let response = Response(incidentNumber: "", details: "", date: Date())
-        emergency.add(response: response)
+        handleNew(response: response, toEmergency: emergency)
+    }
 
-        _ = EmergencyTypeDataSource.update(emergency: emergency)
+    private func handleNew(response: Response, toEmergency emergency: Emergency) {
+        DataManager.shared.add(response: response, toEmergency: emergency)
         callsTableView.reloadData()
+        lastResponse = response
+        loadData()
+        setupPoints()
+    }
+
+    func handleRemoved(response: Response, fromEmergency emergency: Emergency ) {
+        DataManager.shared.remove(response: response, fromEmergency: emergency)
+        callsTableView.reloadData()
+        loadData()
+        setupPoints()
+    }
+
+    func handleChanged(response: Response, newValue: Response) {
+        DataManager.shared.update(response: response, newValue: newValue)
     }
 
     //MARK: - Navigation Bar Actions
@@ -67,31 +100,36 @@ class EmergencyViewController: UIViewController {
         AlertFactory.showOKCancelAlert(message: "Confirm you responded to \(emergency.type)") { [weak self] in
             AlertFactory.showDetailsAlert(message: "You responded to \(emergency.type)", onDone: { [weak self] in
                 self?.addEmptyResponse(forEmergency: emergency)
-            }, onDetails: { [weak self] in
-                self?.showResponseDetails(forEmergency: emergency)
+                }, onDetails: { [weak self] in
+                    self?.showResponseDetails(forEmergency: emergency)
             })
         }
     }
 
     @IBAction func onAddCall(_ sender: Any) {
-        AlertFactory.showAddEmergencyTypeAlert { (emergencyType) in
+        AlertFactory.showAddEmergencyTypeAlert { [weak self] (emergencyType) in
             let newEmergencyType = Emergency(type: emergencyType, responses: [])
-            EmergencyTypeDataSource.saveEmergencyType(emergency: newEmergencyType, callback: { [weak self] (success, error) in
-                if error != nil {
-                    AlertFactory.showOKAlert(message: error!.message)
-                } else {
-                    self?.emergencyTypes.append(newEmergencyType)
-                    self?.callsTableView.reloadData()
-                    self?.handleEmptyDataIfNeeded()
-                }
-            })
+            DataManager.shared.add(emergency: newEmergencyType)
+            self?.emergencyTypes.append(newEmergencyType)
+            self?.callsTableView.reloadData()
+            self?.handleEmptyDataIfNeeded()
         }
     }
 
     @IBAction func onShowPoints(_ sender: Any) {
         guard let pointsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: PointsViewController.storyboardID) as? PointsViewController else { return }
-        let lastRepsonse = EmergencyTypeDataSource.getLastResponse()
-        pointsVC.update(withPoints: points, lastResponse: lastRepsonse)
+        pointsVC.update(withPoints: points, lastResponse: lastResponse, clearDataBlock: {
+            DataManager.shared.clearAllData(callback: { [weak self] (success, error)  in
+                if error != nil {
+                    AlertFactory.showOKAlert(message: error!.message)
+                } else {
+                    AlertFactory.showOKAlert(message: "All data was successfully removed")
+                    self?.loadData()
+                    self?.callsTableView.reloadData()
+                    self?.setupPoints()
+                }
+            })
+        })
         navigationController?.pushViewController(pointsVC, animated: true)
     }
 }
@@ -111,9 +149,16 @@ extension EmergencyViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let emergencyCallVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: EmergencyDetailsViewController.storyboardID) as? EmergencyDetailsViewController else { return }
+        guard let emergencyCallVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier:
+            EmergencyDetailsViewController.storyboardID) as? EmergencyDetailsViewController else { return }
         self.navigationController?.pushViewController(emergencyCallVC, animated: true)
-        emergencyCallVC.update(withEmergencyCall: emergencyTypes[indexPath.row])
+        emergencyCallVC.update(withEmergencyCall: emergencyTypes[indexPath.row],
+                               repsonseAddedCallback: { [unowned self] (response) in
+                                self.handleRemoved(response: response, fromEmergency: self.emergencyTypes[indexPath.row])
+            },
+                               responseEditBlock: { [unowned self] (response, newValue) in
+                                self.handleChanged(response: response, newValue: newValue)
+        })
     }
 }
 

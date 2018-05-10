@@ -1,12 +1,5 @@
-//
-//  AppDelegate.swift
-//  ResponseTracker
-//
-//  Created by Gordana Badarovska on 4/27/18.
-//  Copyright © 2018 Pioneer Mobile Applications. All rights reserved.
-//
-
 import UIKit
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,7 +8,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        PointsDataSource.refreshPointsIfNeeded()
         return true
     }
 
@@ -38,9 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
+        DataManager.shared.persistData()
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
 }
 

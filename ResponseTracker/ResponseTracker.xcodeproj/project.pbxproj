@@ -18,14 +18,13 @@
 		B930CFCF209366B600EB5980 /* EmergencyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930CFCE209366B600EB5980 /* EmergencyCell.swift */; };
 		B930CFD52093731700EB5980 /* AlertFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930CFD42093731700EB5980 /* AlertFactory.swift */; };
 		B930CFD72093787700EB5980 /* UIApplicationExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930CFD62093787700EB5980 /* UIApplicationExt.swift */; };
-		B966381720A0594000E1CBA3 /* PointsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B966381620A0594000E1CBA3 /* PointsDataSource.swift */; };
 		B966381B20A07ACB00E1CBA3 /* Points.swift in Sources */ = {isa = PBXBuildFile; fileRef = B966381A20A07ACB00E1CBA3 /* Points.swift */; };
+		B966381D20A1F71900E1CBA3 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B966381C20A1F71900E1CBA3 /* DataManager.swift */; };
 		B9802F372099EA04004A9BD5 /* ResponseDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9802F362099EA04004A9BD5 /* ResponseDetailsViewController.swift */; };
 		B9802F392099EB78004A9BD5 /* DateExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9802F382099EB78004A9BD5 /* DateExt.swift */; };
 		B9802F3C209A0AFE004A9BD5 /* PointsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9802F3B209A0AFE004A9BD5 /* PointsViewController.swift */; };
 		B9802F41209A0E23004A9BD5 /* EmergencyDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9802F40209A0E23004A9BD5 /* EmergencyDetailsViewController.swift */; };
 		B9802F43209A10AD004A9BD5 /* EmergencyDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9802F42209A10AD004A9BD5 /* EmergencyDetailCell.swift */; };
-		B9802F46209B1FA7004A9BD5 /* EmergencyTypeDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9802F45209B1FA7004A9BD5 /* EmergencyTypeDataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,14 +43,13 @@
 		B930CFCE209366B600EB5980 /* EmergencyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyCell.swift; sourceTree = "<group>"; };
 		B930CFD42093731700EB5980 /* AlertFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertFactory.swift; sourceTree = "<group>"; };
 		B930CFD62093787700EB5980 /* UIApplicationExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExt.swift; sourceTree = "<group>"; };
-		B966381620A0594000E1CBA3 /* PointsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointsDataSource.swift; sourceTree = "<group>"; };
 		B966381A20A07ACB00E1CBA3 /* Points.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Points.swift; sourceTree = "<group>"; };
+		B966381C20A1F71900E1CBA3 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		B9802F362099EA04004A9BD5 /* ResponseDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseDetailsViewController.swift; sourceTree = "<group>"; };
 		B9802F382099EB78004A9BD5 /* DateExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExt.swift; sourceTree = "<group>"; };
 		B9802F3B209A0AFE004A9BD5 /* PointsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointsViewController.swift; sourceTree = "<group>"; };
 		B9802F40209A0E23004A9BD5 /* EmergencyDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyDetailsViewController.swift; sourceTree = "<group>"; };
 		B9802F42209A10AD004A9BD5 /* EmergencyDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyDetailCell.swift; sourceTree = "<group>"; };
-		B9802F45209B1FA7004A9BD5 /* EmergencyTypeDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyTypeDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,8 +174,7 @@
 		B9802F44209B1F83004A9BD5 /* DataSource */ = {
 			isa = PBXGroup;
 			children = (
-				B9802F45209B1FA7004A9BD5 /* EmergencyTypeDataSource.swift */,
-				B966381620A0594000E1CBA3 /* PointsDataSource.swift */,
+				B966381C20A1F71900E1CBA3 /* DataManager.swift */,
 			);
 			path = DataSource;
 			sourceTree = "<group>";
@@ -323,12 +320,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				B930CFC820935D1A00EB5980 /* Response.swift in Sources */,
+				B966381D20A1F71900E1CBA3 /* DataManager.swift in Sources */,
 				B9802F372099EA04004A9BD5 /* ResponseDetailsViewController.swift in Sources */,
 				B9802F43209A10AD004A9BD5 /* EmergencyDetailCell.swift in Sources */,
 				B966381B20A07ACB00E1CBA3 /* Points.swift in Sources */,
-				B966381720A0594000E1CBA3 /* PointsDataSource.swift in Sources */,
 				B930CFB020934DA900EB5980 /* EmergencyViewController.swift in Sources */,
-				B9802F46209B1FA7004A9BD5 /* EmergencyTypeDataSource.swift in Sources */,
 				B9802F41209A0E23004A9BD5 /* EmergencyDetailsViewController.swift in Sources */,
 				B930CFC620935D0000EB5980 /* Emergency.swift in Sources */,
 				B930CFAE20934DA900EB5980 /* AppDelegate.swift in Sources */,
@@ -474,11 +470,15 @@
 			baseConfigurationReference = 6B89C419FF431C9B95BF2DB5 /* Pods-ResponseTracker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = ResponseTracker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pioneerapps.ResponseTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -489,11 +489,14 @@
 			baseConfigurationReference = 8CF982474DB3D3B61AD62FC3 /* Pods-ResponseTracker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = ResponseTracker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pioneerapps.ResponseTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

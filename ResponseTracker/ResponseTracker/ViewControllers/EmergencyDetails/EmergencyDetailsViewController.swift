@@ -6,6 +6,8 @@ class EmergencyDetailsViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     private var emergencyCall: Emergency?
+    private var responseAddedBlock: ResponseAddCallback?
+    private var responseEditBlock: ResponseEditCallback?
 
     override func viewDidLoad() {
         tableView.delegate = self
@@ -18,7 +20,7 @@ class EmergencyDetailsViewController: UIViewController {
     }
 
     private func handleEmptyDataIfNeeded() {
-        if emergencyCall?.responses?.isEmpty ?? true {
+        if emergencyCall?.responses.isEmpty ?? true {
             let emptyDataLabel = UILabel()
             emptyDataLabel.text = "\(emergencyCall?.type ?? "") does not have any responses yet."
             emptyDataLabel.textAlignment = .center
@@ -42,19 +44,23 @@ class EmergencyDetailsViewController: UIViewController {
         handleEmptyDataIfNeeded()
     }
 
-    func update(withEmergencyCall call: Emergency) {
+    func update(withEmergencyCall call: Emergency,
+                repsonseAddedCallback: ResponseAddCallback?,
+                responseEditBlock: ResponseEditCallback?) {
         self.emergencyCall = call
+        self.responseAddedBlock = repsonseAddedCallback
+        self.responseEditBlock = responseEditBlock
     }
 
     func getEmergencyResponses() -> [Response] {
-        return emergencyCall?.responses ?? []
+        guard let responses = emergencyCall?.responses else { return [] }
+        return Array(responses)
     }
 
     func removeItem(atIndex index: IndexPath?) {
         AlertFactory.showOKCancelAlert(message: "Are you sure?") { [weak self] in
             guard let emergency = self?.emergencyCall, let index = index else { return }
-            emergency.remove(responseAtIndex: index.row)
-            _ = EmergencyTypeDataSource.update(emergency: emergency)
+            self?.responseAddedBlock?(emergency.responses[index.row])
             self?.tableView.deleteRows(at: [index], with: .left)
             self?.setupEditButton()
             self?.handleEmptyDataIfNeeded()
@@ -84,12 +90,13 @@ extension EmergencyDetailsViewController: UITableViewDelegate, UITableViewDataSo
             let emergencyType = emergencyCall else { return }
         self.navigationController?.pushViewController(responseDetailsVC, animated: true)
         responseDetailsVC.update(withEmergencyType: emergencyType,
-                                 response: getEmergencyResponses()[indexPath.row])
+                                 response: getEmergencyResponses()[indexPath.row],
+                                 responseAddedBlock: responseAddedBlock,
+                                 resposeChangedBlock: responseEditBlock)
     }
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            removeItem(atIndex: indexPath)
-        }
+        guard let emergency = emergencyCall, editingStyle == .delete else { return }
+        removeItem(atIndex: indexPath)
     }
 }
