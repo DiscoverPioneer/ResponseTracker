@@ -8,28 +8,15 @@ class EmergencyDetailsViewController: UIViewController {
     private var emergencyCall: Emergency?
     private var responseAddedBlock: ResponseAddCallback?
     private var responseEditBlock: ResponseEditCallback?
+    private var showEmptyData: Bool = false
 
     override func viewDidLoad() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.separatorStyle = .none
 
         title = emergencyCall?.type ?? ""
-        handleEmptyDataIfNeeded()
+        showEmptyData = emergencyCall?.responsesCount() == 0
         setupEditButton()
-    }
-
-    private func handleEmptyDataIfNeeded() {
-        if emergencyCall?.responses.isEmpty ?? true {
-            let emptyDataLabel = UILabel()
-            emptyDataLabel.text = "\(emergencyCall?.type ?? "") does not have any responses yet."
-            emptyDataLabel.textAlignment = .center
-            emptyDataLabel.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
-            emptyDataLabel.numberOfLines = 0
-            tableView.backgroundView = emptyDataLabel
-        } else {
-            tableView.backgroundView = nil
-        }
     }
 
     private func setupEditButton() {
@@ -41,7 +28,6 @@ class EmergencyDetailsViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         tableView.reloadData()
-        handleEmptyDataIfNeeded()
     }
 
     func update(withEmergencyCall call: Emergency,
@@ -59,11 +45,11 @@ class EmergencyDetailsViewController: UIViewController {
 
     func removeItem(atIndex index: IndexPath?) {
         AlertFactory.showOKCancelAlert(message: "Are you sure?") { [weak self] in
-            guard let emergency = self?.emergencyCall, let index = index else { return }
+            guard let emergency = self?.emergencyCall,
+                let index = index else { return }
             self?.responseAddedBlock?(emergency.responses[index.row])
             self?.tableView.deleteRows(at: [index], with: .left)
             self?.setupEditButton()
-            self?.handleEmptyDataIfNeeded()
         }
     }
 
@@ -76,10 +62,14 @@ class EmergencyDetailsViewController: UIViewController {
 
 extension EmergencyDetailsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return getEmergencyResponses().count
+        return showEmptyData ? 1 : getEmergencyResponses().count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if showEmptyData {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ResponsesEmptyDataCell", for: indexPath) as UITableViewCell
+            return cell
+        }
         let cell = tableView.dequeueReusableCell(withIdentifier: EmergencyDetailCell.reuseID, for: indexPath) as! EmergencyDetailCell
         cell.update(withResponse: getEmergencyResponses()[indexPath.row])
         return cell
@@ -96,7 +86,7 @@ extension EmergencyDetailsViewController: UITableViewDelegate, UITableViewDataSo
     }
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        guard let emergency = emergencyCall, editingStyle == .delete else { return }
+        guard let _ = emergencyCall, editingStyle == .delete else { return }
         removeItem(atIndex: indexPath)
     }
 }

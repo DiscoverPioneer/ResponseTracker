@@ -2,11 +2,12 @@ import UIKit
 
 class EmergencyViewController: UIViewController {
     @IBOutlet weak var callsTableView: UITableView!
-    private var pointsLabel = UILabel()
+    @IBOutlet weak var pointsLabel: UILabel!
 
     var emergencyTypes: [Emergency] = []
     var points: Points = Points(currentYear: 0, currentMonth: 0, previousMonth: 0, all: 0)
     var lastResponse: Response?
+    var showEmptyData: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,24 +23,18 @@ class EmergencyViewController: UIViewController {
         points = DataManager.shared.getPoints()
         emergencyTypes = DataManager.shared.getEmergencyTypes()
         lastResponse = DataManager.shared.getLastResponse()
+        showEmptyData = emergencyTypes.count == 0
     }
 
     private func reloadData() {
         loadData()
         callsTableView.reloadData()
         setupPoints()
-        handleEmptyDataIfNeeded()
     }
 
     private func setupTableView() {
         callsTableView.delegate = self
         callsTableView.dataSource = self
-        handleEmptyDataIfNeeded()
-
-        pointsLabel.numberOfLines = 0
-        pointsLabel.textAlignment = .center
-        pointsLabel.frame = CGRect(x: 0, y: 0, width: view.frame.width - 20, height: 50)
-        callsTableView.tableHeaderView = pointsLabel
     }
 
     private func setupPoints() {
@@ -48,19 +43,6 @@ class EmergencyViewController: UIViewController {
 
     func getCalls() -> [Emergency] {
         return emergencyTypes
-    }
-
-    private func handleEmptyDataIfNeeded() {
-        if emergencyTypes.isEmpty {
-            let emptyDataLabel = UILabel()
-            emptyDataLabel.text = "Emergency calls have not been added yet. Press the Add Call button to add some."
-            emptyDataLabel.textAlignment = .center
-            emptyDataLabel.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
-            emptyDataLabel.numberOfLines = 0
-            callsTableView.backgroundView = emptyDataLabel
-        } else {
-            callsTableView.backgroundView = nil
-        }
     }
 
     private func showResponseDetails(forEmergency emergency: Emergency) {
@@ -132,7 +114,7 @@ class EmergencyViewController: UIViewController {
         }
     }
 
-    @IBAction func onShowPoints(_ sender: Any) {
+    @IBAction func onShowPoints(_ sender: UIBarButtonItem) {
         guard let pointsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: PointsViewController.storyboardID) as? PointsViewController else { return }
         pointsVC.update(withPoints: points, lastResponse: lastResponse, clearDataBlock: {
             DataManager.shared.clearAllData(callback: { [weak self] (success, error)  in
@@ -153,10 +135,15 @@ class EmergencyViewController: UIViewController {
 extension EmergencyViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return getCalls().count
+        return showEmptyData ? 1 : getCalls().count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if showEmptyData {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "EmergencyEmptyDataCell", for: indexPath) as UITableViewCell
+            return cell
+        }
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: EmergencyCell.cellIdentifier, for: indexPath) as! EmergencyCell
         cell.update(withEmergency: emergencyTypes[indexPath.row]) { [weak self] (_, emergencyType) in
             self?.onResponded(index: indexPath.row)

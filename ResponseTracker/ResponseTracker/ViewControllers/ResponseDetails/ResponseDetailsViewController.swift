@@ -14,10 +14,11 @@ class ResponseDetailsViewController: UIViewController {
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var incidentDate: UILabel!
     @IBOutlet weak var emergencyType: UILabel!
-    @IBOutlet weak var datePickerHeught: NSLayoutConstraint!
+    @IBOutlet weak var datePickerHeight: NSLayoutConstraint!
     @IBOutlet weak var changeDate: UIButton!
-    @IBOutlet weak var deleteResponse: UIButton!
-    
+    @IBOutlet weak var deleteButton: UIBarButtonItem!
+    @IBOutlet weak var saveButton: UIBarButtonItem!
+
     private var emergency: Emergency?
     private var response: Response?
     private var editResponse: Response?
@@ -46,10 +47,11 @@ class ResponseDetailsViewController: UIViewController {
     }
 
     func setupViews() {
-        deleteResponse.isHidden = !isEditMode
-        changeDate.isHidden = !isEditMode
-        datePickerHeught.constant = isEditMode ? 0 : kDatePickerHeight
+        let navItems: [UIBarButtonItem] = isEditMode ? [saveButton, deleteButton] : [saveButton]
+        navigationItem.setRightBarButtonItems(navItems, animated: false)
+        setupChangeDate(showPicker: false)
 
+        datePickerHeight.constant = 0
         emergencyType.text = emergency?.type ?? ""
 
         incidentNumber.delegate = self
@@ -67,6 +69,17 @@ class ResponseDetailsViewController: UIViewController {
         incidentDetails.inputAccessoryView = accessory
     }
 
+    private func setupChangeDate(showPicker: Bool) {
+        let pickerAlpha: CGFloat = showPicker ? 1 : 0
+        let buttonAlpha: CGFloat = showPicker ? 0 : 1
+        UIView.animate(withDuration: 0.3) { [weak self] in
+            self?.datePickerHeight.constant = showPicker ? self?.kDatePickerHeight ?? 0 : 0
+            self?.changeDate.alpha = buttonAlpha
+            self?.datePicker.alpha = pickerAlpha
+            self?.view.layoutIfNeeded()
+        }
+    }
+
     //MARK: - Actions
     @IBAction func onSave(_ sender: Any) {
         navigationController?.popViewController(animated: true)
@@ -82,8 +95,14 @@ class ResponseDetailsViewController: UIViewController {
     }
 
     @IBAction func onDatePicker(_ datePicker: UIDatePicker) {
-        incidentDate.text = datePicker.date.toString()
         editResponse?.date = datePicker.date
+        UIView.transition(with: incidentDate,
+                          duration: 0.3,
+                          options: .transitionCrossDissolve,
+                          animations: { [weak self] in
+                            self?.incidentDate.text = datePicker.date.toString()
+            }, completion: nil)
+        setupChangeDate(showPicker: false)
     }
 
     @objc func onDoneButton(_ button: UIButton) {
@@ -91,13 +110,7 @@ class ResponseDetailsViewController: UIViewController {
     }
 
     @IBAction func onChangeDate(_ sender: UIButton) {
-        if datePickerHeught.constant == 0 {
-            UIView.animate(withDuration: 0.3) { [weak self] in
-                self?.datePickerHeught.constant = self?.kDatePickerHeight ?? 0
-                self?.view.layoutIfNeeded()
-                self?.changeDate.isHidden = true
-            }
-        }
+        setupChangeDate(showPicker: datePickerHeight.constant == 0)
     }
 
     @IBAction func onDelete(_ sender: UIButton) {
