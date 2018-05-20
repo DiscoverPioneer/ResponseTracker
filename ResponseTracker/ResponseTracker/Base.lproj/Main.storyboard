@@ -169,7 +169,7 @@
                                 <action selector="onAddCall:" destination="BYZ-38-t0r" id="Grk-O7-dKd"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="My Points" style="plain" id="voD-OA-cuv">
+                        <barButtonItem key="rightBarButtonItem" image="points_icon" style="plain" id="voD-OA-cuv">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="onShowPoints:" destination="BYZ-38-t0r" id="eVf-dc-aVb"/>
@@ -505,7 +505,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="49.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zZw-w5-r79">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.10000000000000001" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zZw-w5-r79">
                                                     <rect key="frame" x="194" y="11" width="140" height="28"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="140" id="5Em-9S-LM6"/>
@@ -672,6 +672,7 @@
     <resources>
         <image name="delete_icon" width="24" height="24"/>
         <image name="menu_icon" width="24" height="24"/>
+        <image name="points_icon" width="24" height="24"/>
         <image name="save_icon" width="24" height="24"/>
     </resources>
 </document>
