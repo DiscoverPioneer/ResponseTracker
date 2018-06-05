@@ -44,7 +44,7 @@ class DataManager {
     }
 
     func getLastResponse() -> Response? {
-        return lastResonse
+        return loadLastResponse()
     }
 
     func add(emergency: Emergency, callback: DataOperationSuccessBlock) {
