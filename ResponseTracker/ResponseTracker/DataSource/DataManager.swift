@@ -156,6 +156,19 @@ class DataManager {
         self.points = loadPoints()
     }
 
+    func manuallyAddedToCSV() -> String {
+        let presetPoints = getPresetPoints()
+        var csvString = "\n"
+        for point in presetPoints {
+            let pointsValue = point["points"] as! Int
+            let date = point["date_added"] as! Date
+            for _ in 0..<pointsValue {
+                csvString += "Manually added," + "," + date.toString() + "," + "\n"
+            }
+        }
+        return csvString
+    }
+
     func clearPoints() {
         lastClearPoints(date: Date())
         self.points.clearPoints()
@@ -170,6 +183,8 @@ class DataManager {
         for emergency in emergencyTypes {
             csv += emergency.toCSV()
         }
+
+        csv += manuallyAddedToCSV()
 
         do {
             try csv.write(to: path, atomically: true, encoding: .utf8)
