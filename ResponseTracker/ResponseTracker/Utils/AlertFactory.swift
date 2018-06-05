@@ -43,6 +43,23 @@ class AlertFactory {
         present(alert:alertController)
     }
 
+    class func showEditEmergencyTypeAlert(title: String, onOK okCallback: @escaping (_ emergencyType: String) -> ()) {
+        let alertController = UIAlertController(title: title, message: nil, preferredStyle: .alert)
+        alertController.addTextField(configurationHandler: nil)
+
+        let okButton = okAction {
+            if alertController.textFields?[0].text?.isEmpty ?? true {
+                return
+            } else {
+                okCallback(alertController.textFields?[0].text ?? "")
+            }
+        }
+
+        alertController.addAction(okButton)
+        alertController.addAction(cancelAction(nil))
+        present(alert: alertController)
+    }
+
     class func showAddPointsAlert(onOK okCallback: @escaping (_ points: Int) -> ()) {
         let alertController = UIAlertController(title: "Add points", message: nil, preferredStyle: .alert)
         alertController.addTextField(configurationHandler: { (textField) in

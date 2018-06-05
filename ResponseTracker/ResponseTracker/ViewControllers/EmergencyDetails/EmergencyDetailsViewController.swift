@@ -20,13 +20,6 @@ class EmergencyDetailsViewController: UIViewController {
 
         title = emergencyCall?.type ?? ""
         showEmptyData = emergencyCall?.responsesCount() == 0
-        setupEditButton()
-    }
-
-    private func setupEditButton() {
-        if emergencyCall?.responsesCount() == 0 {
-            navigationItem.rightBarButtonItem?.isEnabled = false
-        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -71,7 +64,7 @@ class EmergencyDetailsViewController: UIViewController {
 
     @IBAction func onEdit(_ sender: UIBarButtonItem) {
         guard let emergency = emergencyCall else { return }
-        AlertFactory.showAddEmergencyTypeAlert(title: "Edit emergency type") { (newName) in
+        AlertFactory.showEditEmergencyTypeAlert(title: "Edit emergency type") { (newName) in
             DataManager.shared.update(emergency: emergency, newName: newName, callback: { [weak self] (success, error) in
                 if error != nil {
                     AlertFactory.showOKAlert(message: error?.message ?? "")
