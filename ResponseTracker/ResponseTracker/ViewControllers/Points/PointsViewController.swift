@@ -4,14 +4,13 @@ import UIKit
 class PointsViewController: UIViewController {
 
     static let storyboardID = "PointsDetailsViewController"
-    private var titles = ["Last Response:", "Total Yearly Points:", "This Month's Points:", "Last Month's Points:"]
+    private var titles = ["Total Yearly Points:", "This Month's Points:", "Last Month's Points:"]
 
     private var pointStrings: [String] = []
 
     @IBOutlet weak var pointsTable: UITableView!
 
     private var points: Points?
-    private var lastResponse: Response?
     private var clearDataCallback: (()->())?
 
     override func viewDidLoad() {
@@ -22,16 +21,14 @@ class PointsViewController: UIViewController {
     func setupPoints() {
         guard let points = points else { return }
         pointsTable.dataSource = self
-        pointStrings = [lastResponse?.date.toString() ?? "No responses yet",
-                        String(describing: points.currentYear),
+        pointStrings =  [String(describing: points.currentYear),
                         String(describing: points.currentMonth),
                         String(describing: points.previousMonth)]
         pointsTable.reloadData()
     }
 
-    func update(withPoints points: Points, lastResponse: Response?, clearDataBlock: @escaping ()->()) {
+    func update(withPoints points: Points, clearDataBlock: @escaping ()->()) {
         self.points = points
-        self.lastResponse = lastResponse
         self.clearDataCallback = clearDataBlock
     }
 
@@ -76,7 +73,6 @@ class PointsViewController: UIViewController {
     private func onClearData() {
         AlertFactory.showOKCancelAlert(message: "This action can not be undone!", onOK: { [weak self] in
             self?.clearDataCallback?()
-            self?.lastResponse = nil
             self?.points?.clearPoints()
             self?.setupPoints()
         })

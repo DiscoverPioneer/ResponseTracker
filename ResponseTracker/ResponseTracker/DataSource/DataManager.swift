@@ -7,6 +7,7 @@ enum DataError {
     case errorWritingData
     case errorClearData
     case errorExportingData
+    case errorChangingName
 
     var message: String {
         switch self {
@@ -15,6 +16,7 @@ enum DataError {
         case .errorWritingData: return "Data could not be saved!"
         case .errorClearData: return "Data could not be cleared"
         case .errorExportingData: return "Error exporting data"
+        case .errorChangingName: return "Emergency type name could not be changed"
         }
     }
 }
@@ -36,11 +38,11 @@ class DataManager {
     }
 
     func getPoints() -> Points {
-        return points
+        return loadPoints()
     }
 
     func getEmergencyTypes() -> [Emergency] {
-        return emergencyTypes
+        return loadEmergencyTypes()
     }
 
     func getLastResponse() -> Response? {
@@ -50,7 +52,7 @@ class DataManager {
     func add(emergency: Emergency, callback: DataOperationSuccessBlock) {
         do {
             try defaultRealm.write {
-                if alreadyExists(newEmergency: emergency){
+                if alreadyExists(newEmergency: emergency) {
                     callback(false, DataError.alreadyExists)
                 } else {
                     emergencyTypes.append(emergency)
@@ -99,6 +101,30 @@ class DataManager {
             }
         } catch {
             callback(false, DataError.errorWritingData)
+        }
+    }
+
+    func update(emergency: Emergency, newName: String, callback: DataOperationSuccessBlock) {
+        do {
+            try defaultRealm.write {
+                emergency.type = newName
+                callback(true, nil)
+            }
+        } catch {
+            callback(false, DataError.errorChangingName)
+        }
+    }
+
+    func remove(emergency: Emergency, callback: DataOperationSuccessBlock) {
+        do {
+            try defaultRealm.write {
+                defaultRealm.delete(emergency.responses)
+                defaultRealm.delete(emergency)
+                points = loadPoints()
+                callback(true, nil)
+            }
+        } catch {
+            callback(false, DataError.errorClearData)
         }
     }
 

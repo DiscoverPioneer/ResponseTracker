@@ -2,11 +2,9 @@ import UIKit
 
 class EmergencyViewController: UIViewController {
     @IBOutlet weak var callsTableView: UITableView!
-    @IBOutlet weak var pointsLabel: UILabel!
 
     var emergencyTypes: [Emergency] = []
     var points: Points = Points(currentYear: 0, currentMonth: 0, previousMonth: 0, all: 0)
-    var lastResponse: Response?
     var showEmptyData: Bool = false
 
     override func viewDidLoad() {
@@ -22,23 +20,17 @@ class EmergencyViewController: UIViewController {
     private func loadData() {
         points = DataManager.shared.getPoints()
         emergencyTypes = DataManager.shared.getEmergencyTypes()
-        lastResponse = DataManager.shared.getLastResponse()
         showEmptyData = emergencyTypes.count == 0
     }
 
     private func reloadData() {
         loadData()
         callsTableView.reloadData()
-        setupPoints()
     }
 
     private func setupTableView() {
         callsTableView.delegate = self
         callsTableView.dataSource = self
-    }
-
-    private func setupPoints() {
-        pointsLabel.text = "Total Monthly Points: \(points.currentMonth)\nTotal Yearly Points: \(points.currentYear)"
     }
 
     func getCalls() -> [Emergency] {
@@ -51,7 +43,6 @@ class EmergencyViewController: UIViewController {
         responseDetailsVC.update(withEmergencyType: emergency,
                                  responseAddedBlock: { [weak self] (response) in
                                     self?.handleNew(response: response, toEmergency: emergency)
-                                    self?.setupPoints()
             },
                                  resposeChangedBlock: nil)
     }
@@ -102,7 +93,7 @@ class EmergencyViewController: UIViewController {
     }
 
     @IBAction func onAddCall(_ sender: Any) {
-        AlertFactory.showAddEmergencyTypeAlert { [weak self] (emergencyType) in
+        AlertFactory.showAddEmergencyTypeAlert(title: "Add emergeny type") { [weak self] (emergencyType) in
             let newEmergencyType = Emergency(type: emergencyType, responses: [])
             DataManager.shared.add(emergency: newEmergencyType, callback: { [weak self] (success, error) in
                 if error != nil {
@@ -116,7 +107,7 @@ class EmergencyViewController: UIViewController {
 
     @IBAction func onShowPoints(_ sender: UIBarButtonItem) {
         guard let pointsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: PointsViewController.storyboardID) as? PointsViewController else { return }
-        pointsVC.update(withPoints: points, lastResponse: lastResponse, clearDataBlock: {
+        pointsVC.update(withPoints: points, clearDataBlock: {
             DataManager.shared.clearAllData(callback: { [weak self] (success, error)  in
                 if error != nil {
                     AlertFactory.showOKAlert(message: error!.message)
@@ -124,7 +115,6 @@ class EmergencyViewController: UIViewController {
                     AlertFactory.showOKAlert(message: "All data was successfully removed")
                     self?.loadData()
                     self?.callsTableView.reloadData()
-                    self?.setupPoints()
                 }
             })
         })

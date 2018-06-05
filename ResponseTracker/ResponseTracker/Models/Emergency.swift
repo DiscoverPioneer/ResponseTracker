@@ -26,6 +26,25 @@ class Emergency: Object {
         return responses.count
     }
 
+    func getPoints() -> Points {
+        var startOfYear = Date().startOfYear()
+        var startOfMonth = Date().startOfMonth()
+
+        if let lastReset =  UserDefaults.standard.object(forKey: "last_point_reset") as? Date {
+            startOfYear = startOfYear > lastReset ? startOfYear : lastReset
+            startOfMonth = startOfMonth > lastReset ? startOfMonth : lastReset
+        }
+
+        let allResponsesCount = responses.count
+        let yearlyResponses = responses.filter("date >= %@", startOfYear).count
+        let monthyResponse = responses.filter("date >=  %@", startOfMonth).count
+
+        return Points(currentYear: yearlyResponses,
+                      currentMonth: monthyResponse,
+                      previousMonth: 0,
+                      all: allResponsesCount)
+    }
+
     func add(response: Response) {
         responses.append(response)
     }

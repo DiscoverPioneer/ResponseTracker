@@ -5,12 +5,14 @@ class EmergencyDetailsViewController: UIViewController {
     static let storyboardID = "EmergencyCallDetailsViewController"
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var pointsLabel: UILabel!
+
     private var emergencyCall: Emergency?
-    private var responseAddedBlock: ResponseAddCallback?
+    private var responseRemovedBlock: ResponseAddCallback?
     private var responseEditBlock: ResponseEditCallback?
     private var showEmptyData: Bool = false
-
     private var deletedItems: [Response] = []
+    private var points: Points?
 
     override func viewDidLoad() {
         tableView.delegate = self
@@ -19,7 +21,6 @@ class EmergencyDetailsViewController: UIViewController {
         title = emergencyCall?.type ?? ""
         showEmptyData = emergencyCall?.responsesCount() == 0
         setupEditButton()
-        setupBackButton()
     }
 
     private func setupEditButton() {
@@ -28,23 +29,18 @@ class EmergencyDetailsViewController: UIViewController {
         }
     }
 
-    private func setupBackButton() {
-        self.navigationController?.navigationBar.backIndicatorImage = UIImage(named: "back_icon")
-        let backButton = UIBarButtonItem(title: "Back", style: .done, target: self, action: #selector(onBack(_:)))
-        backButton.setTitleTextAttributes([NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 17)], for: .normal)
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: self, action: #selector(onBack(_:)))
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         tableView.reloadData()
+        setupPoints()
     }
 
     func update(withEmergencyCall call: Emergency,
                 repsonseAddedCallback: ResponseAddCallback?,
                 responseEditBlock: ResponseEditCallback?) {
+
         self.emergencyCall = call
-        self.responseAddedBlock = repsonseAddedCallback
+        self.responseRemovedBlock = repsonseAddedCallback
         self.responseEditBlock = responseEditBlock
     }
 
@@ -53,35 +49,38 @@ class EmergencyDetailsViewController: UIViewController {
         return Array(responses)
     }
 
-    func removeItem(atIndex index: IndexPath?) {
-        AlertFactory.showOKCancelAlert(message: "Are you sure?") { [weak self] in
-            guard let emergency = self?.emergencyCall,
-                let index = index,
-                let cell = self?.tableView.cellForRow(at: index) as? EmergencyDetailCell else { return }
+    private func setupPoints() {
+        self.points = emergencyCall?.getPoints()
+        self.pointsLabel.text = "Total Monthly Points: \(points?.currentMonth ?? 0) \nTotal Yearly Points: \(points?.currentYear ?? 0)"
 
-            cell.strikethrough()
-            cell.setEditing(false, animated: true)
-            cell.isUserInteractionEnabled = false
-            self?.deletedItems.append(emergency.responses[index.row])
-            self?.setupEditButton()
-        }
     }
 
     //MARK: - Actions
-    @IBAction func onEdit(_ sender: UIBarButtonItem) {
-        tableView.setEditing(!tableView.isEditing, animated: true)
-        navigationItem.rightBarButtonItem?.title = tableView.isEditing ? "Done" : "Edit"
-    }
-
-    @objc private func onBack(_ sender: UIBarButtonItem) {
-        for item in deletedItems {
-            responseAddedBlock?(item)
+    @IBAction func onDelete(_ sender: UIBarButtonItem) {
+        guard  let emergency = emergencyCall else { return }
+        AlertFactory.showOKCancelAlert(message: "Are you sure?") {
+            DataManager.shared.remove(emergency: emergency, callback: { [weak self] (success, error) in
+                if error != nil {
+                    AlertFactory.showOKAlert(message: error?.message ?? "")
+                } else {
+                    self?.navigationController?.popViewController(animated: true)
+                }
+            })
         }
-
-        navigationController?.popViewController(animated: true)
     }
 
-    
+    @IBAction func onEdit(_ sender: UIBarButtonItem) {
+        guard let emergency = emergencyCall else { return }
+        AlertFactory.showAddEmergencyTypeAlert(title: "Edit emergency type") { (newName) in
+            DataManager.shared.update(emergency: emergency, newName: newName, callback: { [weak self] (success, error) in
+                if error != nil {
+                    AlertFactory.showOKAlert(message: error?.message ?? "")
+                } else {
+                    self?.title = newName
+                }
+            })
+        }
+    }
 }
 
 extension EmergencyDetailsViewController: UITableViewDelegate, UITableViewDataSource {
@@ -105,12 +104,7 @@ extension EmergencyDetailsViewController: UITableViewDelegate, UITableViewDataSo
         self.navigationController?.pushViewController(responseDetailsVC, animated: true)
         responseDetailsVC.update(withEmergencyType: emergencyType,
                                  response: getEmergencyResponses()[indexPath.row],
-                                 responseAddedBlock: responseAddedBlock,
+                                 responseAddedBlock: responseRemovedBlock,
                                  resposeChangedBlock: responseEditBlock)
-    }
-
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        guard let _ = emergencyCall, editingStyle == .delete else { return }
-        removeItem(atIndex: indexPath)
     }
 }

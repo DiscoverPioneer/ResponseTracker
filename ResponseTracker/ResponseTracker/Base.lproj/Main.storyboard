@@ -39,37 +39,9 @@
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="separatorColor" red="0.16078431369999999" green="0.50196078430000002" blue="0.72549019609999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <view key="tableHeaderView" contentMode="scaleToFill" id="B1c-j9-zut" userLabel="HeaderView">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1vq-Kl-J3y" userLabel="SeparatorLine">
-                                            <rect key="frame" x="0.0" y="48" width="320" height="1"/>
-                                            <color key="backgroundColor" red="0.16078431369999999" green="0.50196078430000002" blue="0.72549019609999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="0.5" id="gYd-d6-th3"/>
-                                            </constraints>
-                                        </view>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MU9-Qq-YnE">
-                                            <rect key="frame" x="30" y="27.5" width="260" height="20.5"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="1vq-Kl-J3y" secondAttribute="trailing" id="66g-2w-wxp"/>
-                                        <constraint firstAttribute="trailing" secondItem="MU9-Qq-YnE" secondAttribute="trailing" constant="30" id="KQF-Pu-qo6"/>
-                                        <constraint firstItem="MU9-Qq-YnE" firstAttribute="leading" secondItem="B1c-j9-zut" secondAttribute="leading" constant="30" id="Kfb-ER-GfV"/>
-                                        <constraint firstAttribute="bottom" secondItem="1vq-Kl-J3y" secondAttribute="bottom" constant="1" id="TAd-yG-2Q9"/>
-                                        <constraint firstItem="1vq-Kl-J3y" firstAttribute="top" secondItem="MU9-Qq-YnE" secondAttribute="bottom" id="VXi-Mu-UOb"/>
-                                        <constraint firstItem="1vq-Kl-J3y" firstAttribute="leading" secondItem="B1c-j9-zut" secondAttribute="leading" id="poi-sK-VjO"/>
-                                    </constraints>
-                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CallTypeCellIdentifier" rowHeight="50" id="eIK-hV-cX8" customClass="EmergencyCell" customModule="ResponseTracker" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="78" width="320" height="50"/>
+                                        <rect key="frame" x="0.0" y="28" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eIK-hV-cX8" id="r9L-cK-3c1">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="49.5"/>
@@ -123,7 +95,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="EmergencyEmptyDataCell" rowHeight="50" id="5VE-JN-MTn">
-                                        <rect key="frame" x="0.0" y="128" width="320" height="50"/>
+                                        <rect key="frame" x="0.0" y="78" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5VE-JN-MTn" id="S6j-Lr-WCZ">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="49.5"/>
@@ -179,7 +151,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="callsTableView" destination="TgJ-h9-XPy" id="M2Y-q4-FKR"/>
-                        <outlet property="pointsLabel" destination="MU9-Qq-YnE" id="3YR-fg-64T"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -500,9 +471,38 @@
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" red="0.16078431369999999" green="0.50196078430000002" blue="0.72549019609999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="8TK-J1-1dQ">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6PB-T6-Xsr">
+                                            <rect key="frame" x="30" y="0.0" width="260" height="50"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="feU-gY-2VR" userLabel="Separator Line">
+                                            <rect key="frame" x="0.0" y="48" width="320" height="1"/>
+                                            <color key="backgroundColor" red="0.0" green="0.37647058820000001" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="0.5" id="RUg-gE-a8d"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="feU-gY-2VR" secondAttribute="bottom" constant="1" id="8Tl-EU-exr"/>
+                                        <constraint firstAttribute="trailing" secondItem="feU-gY-2VR" secondAttribute="trailing" id="BIW-RE-l1h"/>
+                                        <constraint firstItem="feU-gY-2VR" firstAttribute="leading" secondItem="8TK-J1-1dQ" secondAttribute="leading" id="J8W-53-XOd"/>
+                                        <constraint firstItem="6PB-T6-Xsr" firstAttribute="top" secondItem="8TK-J1-1dQ" secondAttribute="top" id="Uja-eL-swP"/>
+                                        <constraint firstAttribute="trailing" secondItem="6PB-T6-Xsr" secondAttribute="trailing" constant="30" id="cuf-Ld-Ikh"/>
+                                        <constraint firstAttribute="bottom" secondItem="6PB-T6-Xsr" secondAttribute="bottom" id="rh6-5n-T6K"/>
+                                        <constraint firstItem="6PB-T6-Xsr" firstAttribute="leading" secondItem="8TK-J1-1dQ" secondAttribute="leading" constant="30" id="w7M-2C-HRF"/>
+                                    </constraints>
+                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="EmergencyDetailCellIdentifier" rowHeight="50" id="9um-64-uFL" customClass="EmergencyDetailCell" customModule="ResponseTracker" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="320" height="50"/>
+                                        <rect key="frame" x="0.0" y="78" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9um-64-uFL" id="sAz-nc-7yt">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="49.5"/>
@@ -554,7 +554,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ResponsesEmptyDataCell" id="5MZ-zV-bl9">
-                                        <rect key="frame" x="0.0" y="78" width="320" height="50"/>
+                                        <rect key="frame" x="0.0" y="128" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5MZ-zV-bl9" id="ZyJ-se-UM4">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="49.5"/>
@@ -595,14 +595,23 @@
                     </view>
                     <navigationItem key="navigationItem" id="MON-XU-Qgq">
                         <barButtonItem key="backBarButtonItem" title="Back" id="Heg-Hn-UBr"/>
-                        <barButtonItem key="rightBarButtonItem" image="delete_icon" id="aL9-tg-ciQ">
-                            <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <connections>
-                                <action selector="onEdit:" destination="cbC-hL-H8u" id="Umv-pK-foJ"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem image="edit_icon" id="Oo6-Gu-nPD">
+                                <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="onEdit:" destination="cbC-hL-H8u" id="01m-z2-rbn"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem image="delete_icon" id="aL9-tg-ciQ">
+                                <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="onDelete:" destination="cbC-hL-H8u" id="7mt-YG-1fZ"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="pointsLabel" destination="6PB-T6-Xsr" id="rwL-LX-tF8"/>
                         <outlet property="tableView" destination="UPL-TA-AMz" id="Jbt-Kl-puz"/>
                     </connections>
                 </viewController>
@@ -692,6 +701,7 @@
     </scenes>
     <resources>
         <image name="delete_icon" width="24" height="24"/>
+        <image name="edit_icon" width="24" height="24"/>
         <image name="menu_icon" width="24" height="24"/>
         <image name="points_icon" width="24" height="24"/>
         <image name="save_icon" width="24" height="24"/>

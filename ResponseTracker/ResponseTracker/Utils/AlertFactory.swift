@@ -27,8 +27,8 @@ class AlertFactory {
         showAlert(nil, message: message, actions: [doneButton, detailsButton])
     }
 
-    class func showAddEmergencyTypeAlert(onOK okCallback: @escaping (_ emergencyType: String) -> ()) {
-        let alertController = UIAlertController(title: "Add emergency type", message: nil, preferredStyle: .alert)
+    class func showAddEmergencyTypeAlert(title: String, onOK okCallback: @escaping (_ emergencyType: String) -> ()) {
+        let alertController = UIAlertController(title: title, message: nil, preferredStyle: .alert)
         alertController.addTextField(configurationHandler: nil)
         
         let okButton = okAction {
