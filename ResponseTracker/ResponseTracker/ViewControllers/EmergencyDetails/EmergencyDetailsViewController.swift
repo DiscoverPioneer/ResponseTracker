@@ -10,6 +10,8 @@ class EmergencyDetailsViewController: UIViewController {
     private var responseEditBlock: ResponseEditCallback?
     private var showEmptyData: Bool = false
 
+    private var deletedItems: [Response] = []
+
     override func viewDidLoad() {
         tableView.delegate = self
         tableView.dataSource = self
@@ -17,12 +19,20 @@ class EmergencyDetailsViewController: UIViewController {
         title = emergencyCall?.type ?? ""
         showEmptyData = emergencyCall?.responsesCount() == 0
         setupEditButton()
+        setupBackButton()
     }
 
     private func setupEditButton() {
         if emergencyCall?.responsesCount() == 0 {
             navigationItem.rightBarButtonItem?.isEnabled = false
         }
+    }
+
+    private func setupBackButton() {
+        self.navigationController?.navigationBar.backIndicatorImage = UIImage(named: "back_icon")
+        let backButton = UIBarButtonItem(title: "Back", style: .done, target: self, action: #selector(onBack(_:)))
+        backButton.setTitleTextAttributes([NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 17)], for: .normal)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: self, action: #selector(onBack(_:)))
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -46,9 +56,13 @@ class EmergencyDetailsViewController: UIViewController {
     func removeItem(atIndex index: IndexPath?) {
         AlertFactory.showOKCancelAlert(message: "Are you sure?") { [weak self] in
             guard let emergency = self?.emergencyCall,
-                let index = index else { return }
-            self?.responseAddedBlock?(emergency.responses[index.row])
-            self?.tableView.deleteRows(at: [index], with: .left)
+                let index = index,
+                let cell = self?.tableView.cellForRow(at: index) as? EmergencyDetailCell else { return }
+
+            cell.strikethrough()
+            cell.setEditing(false, animated: true)
+            cell.isUserInteractionEnabled = false
+            self?.deletedItems.append(emergency.responses[index.row])
             self?.setupEditButton()
         }
     }
@@ -58,6 +72,16 @@ class EmergencyDetailsViewController: UIViewController {
         tableView.setEditing(!tableView.isEditing, animated: true)
         navigationItem.rightBarButtonItem?.title = tableView.isEditing ? "Done" : "Edit"
     }
+
+    @objc private func onBack(_ sender: UIBarButtonItem) {
+        for item in deletedItems {
+            responseAddedBlock?(item)
+        }
+
+        navigationController?.popViewController(animated: true)
+    }
+
+    
 }
 
 extension EmergencyDetailsViewController: UITableViewDelegate, UITableViewDataSource {
