@@ -2,7 +2,8 @@ import UIKit
 
 class EmergencyViewController: UIViewController {
     @IBOutlet weak var callsTableView: UITableView!
-
+    @IBOutlet weak var pointsLabel: UILabel!
+    
     var emergencyTypes: [Emergency] = []
     var points: Points = Points(currentYear: 0, currentMonth: 0, previousMonth: 0, all: 0)
     var showEmptyData: Bool = false
@@ -26,6 +27,7 @@ class EmergencyViewController: UIViewController {
     private func reloadData() {
         loadData()
         callsTableView.reloadData()
+        setupPoints()
     }
 
     private func setupTableView() {
@@ -37,12 +39,17 @@ class EmergencyViewController: UIViewController {
         return emergencyTypes
     }
 
+    private func setupPoints() {
+        pointsLabel.text = "Total Monthly Points: \(points.currentMonth)\nTotal Yearly Points: \(points.currentYear)"
+    }
+
     private func showResponseDetails(forEmergency emergency: Emergency) {
         guard let responseDetailsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: ResponseDetailsViewController.storyboardID) as? ResponseDetailsViewController else { return }
         self.navigationController?.pushViewController(responseDetailsVC, animated: true)
         responseDetailsVC.update(withEmergencyType: emergency,
                                  responseAddedBlock: { [weak self] (response) in
                                     self?.handleNew(response: response, toEmergency: emergency)
+                                     self?.setupPoints()
             },
                                  resposeChangedBlock: nil)
     }
@@ -115,6 +122,7 @@ class EmergencyViewController: UIViewController {
                     AlertFactory.showOKAlert(message: "All data was successfully removed")
                     self?.loadData()
                     self?.callsTableView.reloadData()
+                    self?.setupPoints()
                 }
             })
         })

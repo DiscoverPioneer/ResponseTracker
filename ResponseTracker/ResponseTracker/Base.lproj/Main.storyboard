@@ -39,9 +39,38 @@
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="separatorColor" red="0.16078431369999999" green="0.50196078430000002" blue="0.72549019609999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="QUM-2U-Ek0">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Ni-0y-Ggx">
+                                            <rect key="frame" x="30" y="0.0" width="260" height="44"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <view alpha="0.69999998807907104" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6xo-Hg-ibN" userLabel="Separator Line">
+                                            <rect key="frame" x="0.0" y="42" width="320" height="1"/>
+                                            <color key="backgroundColor" red="0.0" green="0.37647058820000001" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="0.5" id="UTV-5c-S9d"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="7Ni-0y-Ggx" firstAttribute="top" secondItem="QUM-2U-Ek0" secondAttribute="top" id="1Wl-Xj-Hr1"/>
+                                        <constraint firstItem="7Ni-0y-Ggx" firstAttribute="leading" secondItem="QUM-2U-Ek0" secondAttribute="leading" constant="30" id="6oy-zi-DIQ"/>
+                                        <constraint firstAttribute="trailing" secondItem="6xo-Hg-ibN" secondAttribute="trailing" id="VU6-G0-acB"/>
+                                        <constraint firstItem="6xo-Hg-ibN" firstAttribute="leading" secondItem="QUM-2U-Ek0" secondAttribute="leading" id="Wi4-Jd-8nm"/>
+                                        <constraint firstAttribute="bottom" secondItem="6xo-Hg-ibN" secondAttribute="bottom" constant="1" id="g2h-h5-Bdy"/>
+                                        <constraint firstAttribute="bottom" secondItem="7Ni-0y-Ggx" secondAttribute="bottom" id="vi7-gG-psM"/>
+                                        <constraint firstAttribute="trailing" secondItem="7Ni-0y-Ggx" secondAttribute="trailing" constant="30" id="w50-Oy-VfZ"/>
+                                    </constraints>
+                                </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CallTypeCellIdentifier" rowHeight="50" id="eIK-hV-cX8" customClass="EmergencyCell" customModule="ResponseTracker" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="320" height="50"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CallTypeCellIdentifier" rowHeight="50" id="eIK-hV-cX8" customClass="EmergencyCell" customModule="ResponseTracker" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="72" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eIK-hV-cX8" id="r9L-cK-3c1">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="49.5"/>
@@ -94,8 +123,8 @@
                                             <outlet property="respondedButton" destination="cLi-KB-xkB" id="ZOJ-MF-4Ki"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="EmergencyEmptyDataCell" rowHeight="50" id="5VE-JN-MTn">
-                                        <rect key="frame" x="0.0" y="78" width="320" height="50"/>
+                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="EmergencyEmptyDataCell" rowHeight="50" id="5VE-JN-MTn">
+                                        <rect key="frame" x="0.0" y="122" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5VE-JN-MTn" id="S6j-Lr-WCZ">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="49.5"/>
@@ -151,6 +180,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="callsTableView" destination="TgJ-h9-XPy" id="M2Y-q4-FKR"/>
+                        <outlet property="pointsLabel" destination="7Ni-0y-Ggx" id="DZc-g0-lly"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
