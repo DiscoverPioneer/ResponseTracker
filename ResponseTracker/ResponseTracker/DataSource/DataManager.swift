@@ -27,15 +27,8 @@ class DataManager {
     let defaultRealm = try! Realm()
 
     static let shared = DataManager()
-    private var points: Points = Points(currentYear: 0, currentMonth: 0, previousMonth: 0, all: 0)
-    private var emergencyTypes: [Emergency] = []
-    private var lastResonse: Response?
 
-    init() {
-        points = loadPoints()
-        emergencyTypes = loadEmergencyTypes()
-        lastResonse = loadLastResponse()
-    }
+    init() { }
 
     func getPoints() -> Points {
         return loadPoints()
@@ -55,7 +48,6 @@ class DataManager {
                 if alreadyExists(newEmergency: emergency) {
                     callback(false, DataError.alreadyExists)
                 } else {
-                    emergencyTypes.append(emergency)
                     defaultRealm.add(emergency)
                     callback(true, nil)
                 }
@@ -70,7 +62,6 @@ class DataManager {
             try defaultRealm.write {
                 emergency.add(response: response)
                 defaultRealm.add(response)
-                points = loadPoints()
                 callback(true, nil)
             }
         } catch {
@@ -83,7 +74,6 @@ class DataManager {
             try defaultRealm.write {
                 emergency.remove(response: response)
                 defaultRealm.delete(response)
-                points = loadPoints()
                 callback(true, nil)
             }
         } catch {
@@ -120,7 +110,6 @@ class DataManager {
             try defaultRealm.write {
                 defaultRealm.delete(emergency.responses)
                 defaultRealm.delete(emergency)
-                points = loadPoints()
                 callback(true, nil)
             }
         } catch {
@@ -128,18 +117,11 @@ class DataManager {
         }
     }
 
-    func persistData() {
-        saveEmergencyTypes(emergencyTypes: emergencyTypes) { (success, error) in }
-    }
-
     func clearAllData(callback: DataOperationSuccessBlock) {
         defaultRealm.beginWrite()
         defaultRealm.deleteAll()
         do {
             try defaultRealm.commitWrite()
-            self.emergencyTypes = []
-            self.points.clearPoints()
-            self.lastResonse = nil
             callback(true, nil)
         } catch {
             callback(false, DataError.errorClearData)
@@ -153,7 +135,6 @@ class DataManager {
         let archevedPoints = NSKeyedArchiver.archivedData(withRootObject: totalPreset)
         UserDefaults.standard.set(archevedPoints, forKey: "preset_points")
         UserDefaults.standard.synchronize()
-        self.points = loadPoints()
     }
 
     func manuallyAddedToCSV() -> String {
@@ -171,7 +152,6 @@ class DataManager {
 
     func clearPoints() {
         lastClearPoints(date: Date())
-        self.points.clearPoints()
     }
 
     func export() {
@@ -180,7 +160,7 @@ class DataManager {
 
         var csv = "Emergency type, Incident number, Date, Details\n"
 
-        for emergency in emergencyTypes {
+        for emergency in getEmergencyTypes() {
             csv += emergency.toCSV()
         }
 
@@ -196,7 +176,7 @@ class DataManager {
 
     //MARK: - Private Methids
     fileprivate func alreadyExists(newEmergency: Emergency) -> Bool {
-        return emergencyTypes.filter({ (emergency) -> Bool in
+        return getEmergencyTypes().filter({ (emergency) -> Bool in
             return emergency.type == newEmergency.type
         }).count != 0
     }
