@@ -29,7 +29,9 @@ class AlertFactory {
 
     class func showAddEmergencyTypeAlert(title: String, onOK okCallback: @escaping (_ emergencyType: String) -> ()) {
         let alertController = UIAlertController(title: title, message: nil, preferredStyle: .alert)
-        alertController.addTextField(configurationHandler: nil)
+        alertController.addTextField(configurationHandler: { (textField) in
+            textField.autocapitalizationType = .allCharacters
+        })
         
         let okButton = okAction {
             if alertController.textFields?[0].text?.isEmpty ?? true {
@@ -39,13 +41,19 @@ class AlertFactory {
             }
         }
 
+        let cancelButton = cancelAction(nil)
+
         alertController.addAction(okButton)
+        alertController.addAction(cancelButton)
         present(alert:alertController)
     }
 
-    class func showEditEmergencyTypeAlert(title: String, onOK okCallback: @escaping (_ emergencyType: String) -> ()) {
+    class func showEditEmergencyTypeAlert(title: String, text: String? = "", onOK okCallback: @escaping (_ emergencyType: String) -> ()) {
         let alertController = UIAlertController(title: title, message: nil, preferredStyle: .alert)
-        alertController.addTextField(configurationHandler: nil)
+        alertController.addTextField(configurationHandler: { (textField) in
+            textField.autocapitalizationType = .allCharacters
+            textField.text = text
+        })
 
         let okButton = okAction {
             if alertController.textFields?[0].text?.isEmpty ?? true {
@@ -104,7 +112,7 @@ class AlertFactory {
     }
 
     fileprivate class func cancelAction(_ callback: AlertCallback?) -> UIAlertAction {
-        let action = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+        let action = UIAlertAction(title: "Cancel", style: .destructive) { _ in
             callback?()
         }
         return action

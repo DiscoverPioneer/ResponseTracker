@@ -64,7 +64,7 @@ class EmergencyDetailsViewController: UIViewController {
 
     @IBAction func onEdit(_ sender: UIBarButtonItem) {
         guard let emergency = emergencyCall else { return }
-        AlertFactory.showEditEmergencyTypeAlert(title: "Edit emergency type") { (newName) in
+        AlertFactory.showEditEmergencyTypeAlert(title: "Edit emergency type", text: emergency.type) { (newName) in
             DataManager.shared.update(emergency: emergency, newName: newName, callback: { [weak self] (success, error) in
                 if error != nil {
                     AlertFactory.showOKAlert(message: error?.message ?? "")
