@@ -16,7 +16,7 @@ class EmergencyCell: UITableViewCell {
 
     func update(withEmergency emergency: Emergency, onRespondedCallback callback: @escaping RespondedBtnCallback) {
         self.emergency = emergency
-        self.numberOfCallLabel.text = emergency.responsesCount()
+        self.numberOfCallLabel.text = String(describing: emergency.getPoints().currentMonth)
         self.callTypeLabel.text = emergency.type
         self.respondedCallback = callback
     }
