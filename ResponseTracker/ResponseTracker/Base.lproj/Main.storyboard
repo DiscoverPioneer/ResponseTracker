@@ -12,7 +12,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Call Tracker-->
+        <!--Response Tracker-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="EmergencyViewController" customModule="ResponseTracker" customModuleProvider="target" sceneMemberID="viewController">
@@ -163,7 +163,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Call Tracker" id="pPN-T9-Dlp">
+                    <navigationItem key="navigationItem" title="Response Tracker" id="pPN-T9-Dlp">
                         <barButtonItem key="backBarButtonItem" title="Back" id="TqA-dV-Ldw"/>
                         <barButtonItem key="leftBarButtonItem" systemItem="add" id="ncT-DY-5je">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
