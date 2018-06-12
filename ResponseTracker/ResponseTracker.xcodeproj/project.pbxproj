@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		5C5D8341BFA3C666DE53E509 /* Pods_ResponseTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89D834FEA16DF3A2F69E9746 /* Pods_ResponseTracker.framework */; };
+		B90F9CD720CFDFA300165542 /* CALayerExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90F9CD620CFDFA300165542 /* CALayerExt.swift */; };
+		B90F9CD920CFDFD900165542 /* NavigationBarExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90F9CD820CFDFD900165542 /* NavigationBarExt.swift */; };
 		B930CFAE20934DA900EB5980 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930CFAD20934DA900EB5980 /* AppDelegate.swift */; };
 		B930CFB020934DA900EB5980 /* EmergencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930CFAF20934DA900EB5980 /* EmergencyViewController.swift */; };
 		B930CFB320934DA900EB5980 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B930CFB120934DA900EB5980 /* Main.storyboard */; };
@@ -32,6 +34,8 @@
 		6B89C419FF431C9B95BF2DB5 /* Pods-ResponseTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ResponseTracker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ResponseTracker/Pods-ResponseTracker.debug.xcconfig"; sourceTree = "<group>"; };
 		89D834FEA16DF3A2F69E9746 /* Pods_ResponseTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ResponseTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CF982474DB3D3B61AD62FC3 /* Pods-ResponseTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ResponseTracker.release.xcconfig"; path = "Pods/Target Support Files/Pods-ResponseTracker/Pods-ResponseTracker.release.xcconfig"; sourceTree = "<group>"; };
+		B90F9CD620CFDFA300165542 /* CALayerExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayerExt.swift; sourceTree = "<group>"; };
+		B90F9CD820CFDFD900165542 /* NavigationBarExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarExt.swift; sourceTree = "<group>"; };
 		B930CFAA20934DA900EB5980 /* ResponseTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ResponseTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B930CFAD20934DA900EB5980 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B930CFAF20934DA900EB5980 /* EmergencyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyViewController.swift; sourceTree = "<group>"; };
@@ -144,6 +148,8 @@
 				B930CFD42093731700EB5980 /* AlertFactory.swift */,
 				B930CFD62093787700EB5980 /* UIApplicationExt.swift */,
 				B9802F382099EB78004A9BD5 /* DateExt.swift */,
+				B90F9CD620CFDFA300165542 /* CALayerExt.swift */,
+				B90F9CD820CFDFD900165542 /* NavigationBarExt.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -329,12 +335,14 @@
 				B966381B20A07ACB00E1CBA3 /* Points.swift in Sources */,
 				B930CFB020934DA900EB5980 /* EmergencyViewController.swift in Sources */,
 				B9802F41209A0E23004A9BD5 /* EmergencyDetailsViewController.swift in Sources */,
+				B90F9CD920CFDFD900165542 /* NavigationBarExt.swift in Sources */,
 				B9BFEBE120A9BFFE006639A0 /* PointsCell.swift in Sources */,
 				B930CFC620935D0000EB5980 /* Emergency.swift in Sources */,
 				B930CFAE20934DA900EB5980 /* AppDelegate.swift in Sources */,
 				B9802F3C209A0AFE004A9BD5 /* PointsViewController.swift in Sources */,
 				B930CFD72093787700EB5980 /* UIApplicationExt.swift in Sources */,
 				B930CFD52093731700EB5980 /* AlertFactory.swift in Sources */,
+				B90F9CD720CFDFA300165542 /* CALayerExt.swift in Sources */,
 				B9802F392099EB78004A9BD5 /* DateExt.swift in Sources */,
 				B930CFCF209366B600EB5980 /* EmergencyCell.swift in Sources */,
 			);

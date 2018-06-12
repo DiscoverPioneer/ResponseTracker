@@ -56,6 +56,7 @@ class ResponseDetailsViewController: UIViewController {
 
         incidentNumber.delegate = self
         incidentNumber.text = response?.incidentNumber
+        incidentNumber.layer.borderColor = UIColor.lightGray.cgColor
 
         incidentDate.text = response?.date.toString()
 

@@ -11,11 +11,19 @@ class EmergencyViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
+        setupNavigationBar()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         reloadData()
+    }
+
+    private func setupNavigationBar() {
+        var colors = [UIColor]()
+        colors.append(UIColor(red: 255/255, green: 27/255, blue: 28/255, alpha: 1))
+        colors.append(UIColor(red: 255/255, green: 127/255, blue: 17/255, alpha: 1))
+        navigationController?.navigationBar.setGradientBackground(colors: colors)
     }
 
     private func loadData() {
