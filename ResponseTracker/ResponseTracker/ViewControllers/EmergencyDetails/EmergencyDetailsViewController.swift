@@ -51,7 +51,7 @@ class EmergencyDetailsViewController: UIViewController {
     //MARK: - Actions
     @IBAction func onDelete(_ sender: UIBarButtonItem) {
         guard  let emergency = emergencyCall else { return }
-        AlertFactory.showOKCancelAlert(message: "Are you sure?") {
+        AlertFactory.showOKCancelAlert(message: "Are you sure you want to delete this emergency type?") {
             DataManager.shared.remove(emergency: emergency, callback: { [weak self] (success, error) in
                 if error != nil {
                     AlertFactory.showOKAlert(message: error?.message ?? "")

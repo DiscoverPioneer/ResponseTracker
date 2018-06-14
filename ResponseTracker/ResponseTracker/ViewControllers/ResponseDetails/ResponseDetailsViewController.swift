@@ -115,7 +115,7 @@ class ResponseDetailsViewController: UIViewController {
     }
 
     @IBAction func onDelete(_ sender: UIButton) {
-        AlertFactory.showOKCancelAlert(message: "Are you sure?") { [weak self] in
+        AlertFactory.showOKCancelAlert(message: "Are you sure you want to delete this response?") { [weak self] in
             self?.navigationController?.popViewController(animated: true)
             guard let response = self?.response else { return }
             self?.responseAddedCallback?(response)

@@ -108,7 +108,7 @@ class EmergencyViewController: UIViewController {
     }
 
     @IBAction func onAddCall(_ sender: Any) {
-        AlertFactory.showAddEmergencyTypeAlert(title: "Add emergeny type") { [weak self] (emergencyType) in
+        AlertFactory.showAddEmergencyTypeAlert(title: "Add Emergency Type") { [weak self] (emergencyType) in
             let newEmergencyType = Emergency(type: emergencyType, responses: [])
             DataManager.shared.add(emergency: newEmergencyType, callback: { [weak self] (success, error) in
                 if error != nil {

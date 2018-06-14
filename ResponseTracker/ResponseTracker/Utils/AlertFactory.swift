@@ -12,7 +12,7 @@ class AlertFactory {
     class func showOKCancelAlert(message: String, onOK okCallback: @escaping AlertCallback) {
         let okButton = okAction { okCallback() }
         let cancelButton = cancelAction(nil)
-        showAlert(nil, message: message, actions: [okButton, cancelButton])
+        showAlert(nil, message: message, actions: [cancelButton,okButton])
     }
 
     class func showDetailsAlert(message: String,
@@ -30,7 +30,7 @@ class AlertFactory {
     class func showAddEmergencyTypeAlert(title: String, onOK okCallback: @escaping (_ emergencyType: String) -> ()) {
         let alertController = UIAlertController(title: title, message: nil, preferredStyle: .alert)
         alertController.addTextField(configurationHandler: { (textField) in
-            textField.autocapitalizationType = .allCharacters
+            textField.autocapitalizationType = .words
         })
         
         let okButton = okAction {
@@ -51,7 +51,7 @@ class AlertFactory {
     class func showEditEmergencyTypeAlert(title: String, text: String? = "", onOK okCallback: @escaping (_ emergencyType: String) -> ()) {
         let alertController = UIAlertController(title: title, message: nil, preferredStyle: .alert)
         alertController.addTextField(configurationHandler: { (textField) in
-            textField.autocapitalizationType = .allCharacters
+            textField.autocapitalizationType = .words
             textField.text = text
         })
 
@@ -62,9 +62,8 @@ class AlertFactory {
                 okCallback(alertController.textFields?[0].text ?? "")
             }
         }
-
-        alertController.addAction(okButton)
         alertController.addAction(cancelAction(nil))
+        alertController.addAction(okButton)
         present(alert: alertController)
     }
 
@@ -105,7 +104,7 @@ class AlertFactory {
 
     //MARK: Alert Actions
     fileprivate class func okAction(_ callback: AlertCallback?) -> UIAlertAction {
-        let action = UIAlertAction(title: "OK", style: .default) { _ in
+        let action = UIAlertAction(title: "Confirm", style: .default) { _ in
             callback?()
         }
         return action
