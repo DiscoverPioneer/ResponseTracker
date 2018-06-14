@@ -26,6 +26,13 @@ class Emergency: Object {
         return responses.count
     }
 
+    func responseSortedByDate() -> [Response] {
+        let sorted = responses.sorted { (response1, response2) -> Bool in
+            return response1.date > response2.date
+        }
+        return sorted
+    }
+
     func getPoints() -> Points {
         var startOfYear = Date().startOfYear()
         var startOfMonth = Date().startOfMonth()

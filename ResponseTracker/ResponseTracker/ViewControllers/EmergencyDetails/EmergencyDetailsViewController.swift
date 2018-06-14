@@ -38,8 +38,8 @@ class EmergencyDetailsViewController: UIViewController {
     }
 
     func getEmergencyResponses() -> [Response] {
-        guard let responses = emergencyCall?.responses else { return [] }
-        return Array(responses)
+        guard let responses = emergencyCall?.responseSortedByDate() else { return [] }
+        return responses
     }
 
     private func setupPoints() {
