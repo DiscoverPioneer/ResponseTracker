@@ -27,6 +27,7 @@
 		B9802F3C209A0AFE004A9BD5 /* PointsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9802F3B209A0AFE004A9BD5 /* PointsViewController.swift */; };
 		B9802F41209A0E23004A9BD5 /* EmergencyDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9802F40209A0E23004A9BD5 /* EmergencyDetailsViewController.swift */; };
 		B9802F43209A10AD004A9BD5 /* EmergencyDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9802F42209A10AD004A9BD5 /* EmergencyDetailCell.swift */; };
+		B9A84B1A20D28B4E005EC1BE /* ButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A84B1920D28B4E005EC1BE /* ButtonCell.swift */; };
 		B9BFEBE120A9BFFE006639A0 /* PointsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BFEBE020A9BFFE006639A0 /* PointsCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +56,7 @@
 		B9802F3B209A0AFE004A9BD5 /* PointsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointsViewController.swift; sourceTree = "<group>"; };
 		B9802F40209A0E23004A9BD5 /* EmergencyDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyDetailsViewController.swift; sourceTree = "<group>"; };
 		B9802F42209A10AD004A9BD5 /* EmergencyDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyDetailCell.swift; sourceTree = "<group>"; };
+		B9A84B1920D28B4E005EC1BE /* ButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCell.swift; sourceTree = "<group>"; };
 		B9BFEBE020A9BFFE006639A0 /* PointsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointsCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -167,6 +169,7 @@
 			children = (
 				B9802F3B209A0AFE004A9BD5 /* PointsViewController.swift */,
 				B9BFEBE020A9BFFE006639A0 /* PointsCell.swift */,
+				B9A84B1920D28B4E005EC1BE /* ButtonCell.swift */,
 			);
 			path = Points;
 			sourceTree = "<group>";
@@ -339,6 +342,7 @@
 				B9BFEBE120A9BFFE006639A0 /* PointsCell.swift in Sources */,
 				B930CFC620935D0000EB5980 /* Emergency.swift in Sources */,
 				B930CFAE20934DA900EB5980 /* AppDelegate.swift in Sources */,
+				B9A84B1A20D28B4E005EC1BE /* ButtonCell.swift in Sources */,
 				B9802F3C209A0AFE004A9BD5 /* PointsViewController.swift in Sources */,
 				B930CFD72093787700EB5980 /* UIApplicationExt.swift in Sources */,
 				B930CFD52093731700EB5980 /* AlertFactory.swift in Sources */,

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="nIX-eq-0om">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="nIX-eq-0om">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -215,6 +215,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="separatorColor" red="0.8862745098" green="0.85882352939999995" blue="0.74509803919999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="PointsCellResuseIdentifier" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PointsCellResuseIdentifier" rowHeight="50" id="BKr-Gr-lkZ" customClass="PointsCell" customModule="ResponseTracker" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="320" height="50"/>
@@ -257,6 +258,32 @@
                                             <outlet property="titleLabel" destination="MaT-6s-8gz" id="2cg-EN-9Qk"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ButtonCellReuseIdentifier" id="dmF-HS-5wl" customClass="ButtonCell" customModule="ResponseTracker" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="78" width="320" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dmF-HS-5wl" id="6zN-WM-ZCa">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="49.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Atv-Pj-5ia">
+                                                    <rect key="frame" x="135" y="10" width="50" height="30"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <connections>
+                                                        <action selector="onButton:" destination="dmF-HS-5wl" eventType="touchUpInside" id="U4F-Ks-VcW"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <color key="tintColor" red="1" green="0.49803921569999998" blue="0.066666666669999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstItem="Atv-Pj-5ia" firstAttribute="centerY" secondItem="6zN-WM-ZCa" secondAttribute="centerY" id="8wq-LT-oqf"/>
+                                                <constraint firstItem="Atv-Pj-5ia" firstAttribute="centerX" secondItem="6zN-WM-ZCa" secondAttribute="centerX" id="d7H-6a-Rw6"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="button" destination="Atv-Pj-5ia" id="Qi9-qR-Vzq"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>
@@ -268,7 +295,7 @@
                             <constraint firstItem="dlW-KY-Z58" firstAttribute="top" secondItem="4Rb-5X-YIy" secondAttribute="top" id="E15-yP-pzO"/>
                             <constraint firstItem="yj5-qa-pXw" firstAttribute="top" secondItem="czl-lI-KoS" secondAttribute="top" id="Evp-5w-DzF"/>
                             <constraint firstItem="4Rb-5X-YIy" firstAttribute="trailing" secondItem="dlW-KY-Z58" secondAttribute="trailing" id="IHu-Lb-OP0"/>
-                            <constraint firstAttribute="bottom" secondItem="yj5-qa-pXw" secondAttribute="bottom" id="Wxf-y6-iZv"/>
+                            <constraint firstItem="yj5-qa-pXw" firstAttribute="bottom" secondItem="Vjc-oe-jQn" secondAttribute="bottom" id="fFA-7I-TBV"/>
                             <constraint firstItem="4Rb-5X-YIy" firstAttribute="bottom" secondItem="dlW-KY-Z58" secondAttribute="bottom" id="vxw-xK-RgA"/>
                             <constraint firstItem="dlW-KY-Z58" firstAttribute="leading" secondItem="4Rb-5X-YIy" secondAttribute="leading" id="w1b-mP-Llc"/>
                             <constraint firstItem="4Rb-5X-YIy" firstAttribute="bottom" secondItem="Vjc-oe-jQn" secondAttribute="bottom" id="yME-Ey-Tqr"/>
@@ -277,12 +304,6 @@
                     </view>
                     <navigationItem key="navigationItem" title="My Points" id="1ZJ-sW-T39">
                         <barButtonItem key="backBarButtonItem" title="Back" id="qa3-0L-DJ5"/>
-                        <barButtonItem key="rightBarButtonItem" image="menu_icon" id="3OX-57-4lm">
-                            <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <connections>
-                                <action selector="onMenu:" destination="o6q-aW-GPf" id="ujB-NH-k6R"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="pointsTable" destination="dlW-KY-Z58" id="dBy-No-QkX"/>
@@ -741,7 +762,6 @@
     <resources>
         <image name="delete_icon" width="24" height="24"/>
         <image name="edit_icon" width="24" height="24"/>
-        <image name="menu_icon" width="24" height="24"/>
         <image name="points_icon" width="24" height="24"/>
         <image name="save_icon" width="24" height="24"/>
     </resources>
