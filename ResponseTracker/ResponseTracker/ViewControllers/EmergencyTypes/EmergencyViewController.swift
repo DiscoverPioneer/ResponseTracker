@@ -34,7 +34,11 @@ class EmergencyViewController: UIViewController {
 
     private func reloadData() {
         loadData()
-        callsTableView.reloadData()
+
+        UIView.transition(with: callsTableView,
+                          duration: 0.35,
+                          options: .transitionCrossDissolve,
+                          animations: { self.callsTableView.reloadData() })
         setupPoints()
     }
 

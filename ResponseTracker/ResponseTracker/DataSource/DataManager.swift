@@ -35,7 +35,13 @@ class DataManager {
     }
 
     func getEmergencyTypes() -> [Emergency] {
-        return loadEmergencyTypes()
+        //emergencies are sorted by points in current month 
+        var emergencies = loadEmergencyTypes()
+        emergencies.sort { (emergency1, emergency2) -> Bool in
+          return emergency1.getPoints().currentMonth > emergency2.getPoints().currentMonth
+        }
+
+        return emergencies
     }
 
     func getLastResponse() -> Response? {
