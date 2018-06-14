@@ -58,7 +58,7 @@ class ResponseDetailsViewController: UIViewController {
         incidentNumber.text = response?.incidentNumber
         incidentNumber.layer.borderColor = UIColor.lightGray.cgColor
 
-        incidentDate.text = response?.date.toString()
+        incidentDate.text = response?.date.toString("MM/dd/yyyy HH:mm a")
 
         incidentDetails.delegate = self
         incidentDetails.text = response?.details
@@ -101,7 +101,7 @@ class ResponseDetailsViewController: UIViewController {
                           duration: 0.3,
                           options: .transitionCrossDissolve,
                           animations: { [weak self] in
-                            self?.incidentDate.text = datePicker.date.toString()
+                            self?.incidentDate.text = datePicker.date.toString("MM/dd/yyyy HH:mm a")
             }, completion: nil)
         setupChangeDate(showPicker: false)
     }

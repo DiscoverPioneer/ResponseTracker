@@ -10,7 +10,7 @@ class EmergencyDetailCell: UITableViewCell {
 
     func update(withResponse response: Response) {
         incidentNumberLabel?.text = response.incidentNumber
-        descriptionLabel?.text = response.date.toString()
+        descriptionLabel?.text = response.date.toString("MM/dd/yyyy HH:mm a")
     }
 
     func strikethrough() {
