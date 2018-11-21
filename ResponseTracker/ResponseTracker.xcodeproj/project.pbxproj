@@ -211,8 +211,7 @@
 				B930CFA620934DA900EB5980 /* Sources */,
 				B930CFA720934DA900EB5980 /* Frameworks */,
 				B930CFA820934DA900EB5980 /* Resources */,
-				A35B5500E45F6AD3E9B55DB1 /* [CP] Embed Pods Frameworks */,
-				77F7910D2232D03D68E5758A /* [CP] Copy Pods Resources */,
+				E0DE2273B9EBE51B1F711AA1 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -271,21 +270,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		77F7910D2232D03D68E5758A /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ResponseTracker/Pods-ResponseTracker-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		86222F8E4DBCF87DAC814E22 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -304,7 +288,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A35B5500E45F6AD3E9B55DB1 /* [CP] Embed Pods Frameworks */ = {
+		E0DE2273B9EBE51B1F711AA1 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -490,6 +474,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8XD358AHBH;
 				INFOPLIST_FILE = ResponseTracker/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pioneerapps.ResponseTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -509,6 +494,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8XD358AHBH;
 				INFOPLIST_FILE = ResponseTracker/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pioneerapps.ResponseTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
