@@ -124,8 +124,12 @@ class DataManager {
     }
 
     func clearAllData(callback: DataOperationSuccessBlock) {
+        clearPresetPoints()
+        setLastClearPoints(date: Date())
+
         defaultRealm.beginWrite()
         defaultRealm.deleteAll()
+
         do {
             try defaultRealm.commitWrite()
             callback(true, nil)
@@ -157,7 +161,8 @@ class DataManager {
     }
 
     func clearPoints() {
-        lastClearPoints(date: Date())
+        clearPresetPoints()
+        setLastClearPoints(date: Date())
     }
 
     func export() {
@@ -167,11 +172,11 @@ class DataManager {
         var csv = "Emergency type, Incident number, Date, Details\n"
 
         for emergency in getEmergencyTypes() {
-            csv += emergency.toCSV()
+            csv += emergency.toCSV(sinceDate: getLastClearPoints())
         }
 
         csv += manuallyAddedToCSV()
-
+        
         do {
             try csv.write(to: path, atomically: true, encoding: .utf8)
             AlertFactory.showExportActivity(path: path)
@@ -193,10 +198,20 @@ class DataManager {
         return points
     }
 
-    private func lastClearPoints(date: Date) {
+    private func setLastClearPoints(date: Date) {
         UserDefaults.standard.set(date, forKey: "last_point_reset")
         UserDefaults.standard.synchronize()
     }
+
+    private func getLastClearPoints() -> Date? {
+        return UserDefaults.standard.object(forKey: "last_point_reset") as? Date
+    }
+
+    private func clearPresetPoints() {
+        UserDefaults.standard.removeObject(forKey: "preset_points")
+        UserDefaults.standard.synchronize()
+    }
+
 
     private func loadPoints() -> Points {
         var startOfYear = Date().startOfYear()
@@ -208,7 +223,7 @@ class DataManager {
         var monthyResponse = 0
         var previousMonth = 0
 
-        if let lastReset =  UserDefaults.standard.object(forKey: "last_point_reset") as? Date {
+        if let lastReset = getLastClearPoints() {
             startOfYear = startOfYear > lastReset ? startOfYear : lastReset
             startOfPreviousMonth = startOfPreviousMonth > lastReset ? startOfPreviousMonth : lastReset
             startOfMonth = startOfMonth > lastReset ? startOfMonth : lastReset

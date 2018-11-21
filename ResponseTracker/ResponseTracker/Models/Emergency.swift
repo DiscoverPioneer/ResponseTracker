@@ -68,9 +68,10 @@ class Emergency: Object {
         }
     }
 
-    func toCSV() -> String {
+    func toCSV(sinceDate: Date? = nil ) -> String {
         var csvString = ""
         for response in responses {
+            if sinceDate != nil, response.date <= sinceDate! { continue }
             csvString += type + "," + response.toCSV()
             if responses.last != responses {
                 csvString += "\n"
