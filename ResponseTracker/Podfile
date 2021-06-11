@@ -3,6 +3,6 @@ platform :ios, '10.0'
 target 'ResponseTracker' do
   use_frameworks!
 
-pod 'RealmSwift'
+pod 'RealmSwift', '~> 3.20.0'
 
 end
